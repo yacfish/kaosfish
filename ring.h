@@ -12,8 +12,9 @@ public:
 	ofPoint vel;
 	ofColor col;
 	ofColor touchCol;
-	bool bDragged;
-	
+	bool dragged;
+	bool alive;
+
 	//----------------------------------------------------------------	
 	void init() {
         
@@ -23,7 +24,7 @@ public:
         
         touchCol.set( 50, 50, 255, 255 );
 				
-		bDragged = false;
+		dragged = false;
         
 	}
 	
@@ -34,7 +35,7 @@ public:
 	
 	//----------------------------------------------------------------
 	void draw() {
-		if( bDragged ){
+		if( dragged ){
 			ofSetColor(touchCol);
 			ofCircle(pos.x, pos.y, TOUCH_RING_RADIUS);
 		}else{

@@ -59,13 +59,22 @@ public:
     
     void update() {
         one_ring.update();
-        
+        bool break_bool = false;
         for(int i=0; i < balls.size(); i++){
             
-            balls[i].en_velfactor = velfactor;
-            balls[i].update();
-            if (balls[i].check_ring_collision(one_ring.pos.x, one_ring.pos.y) == true) {
-                //reinit
+            if (break_bool == false) {
+                
+                balls[i].en_velfactor = velfactor;
+                balls[i].update();
+                
+                if (balls[i].check_ring_collision(one_ring.pos.x, one_ring.pos.y) == true) {
+                    
+                    reinit();
+                    break_bool = true;
+                    one_ring.alive = false;
+                    
+                }
+                
             }
             
         }
@@ -94,9 +103,9 @@ public:
     void touchdown1(int x, int y, float fps) {
         
         if ( pow((x-one_ring.pos.x),2)+pow((y-one_ring.pos.y),2) < pow((float)TOUCH_RING_RADIUS*1.5,2) ) {
-            
+            one_ring.alive = true;
             one_ring.moveTo(x, y);
-            one_ring.bDragged = true;
+            one_ring.dragged = true;
             Tweenzor::add( &velfactor, velfactor, 1, 0,(int)(1 * fps), EASE_IN_OUT_SINE );
         }
     }
@@ -105,13 +114,18 @@ public:
     
     void touchmoved1(int x, int y,float fps) {
         
-        if (one_ring.bDragged == true) {
+        if (one_ring.dragged == true) {
             
             one_ring.moveTo(x, y);
-            one_ring.bDragged = true;
+            one_ring.dragged = true;
 
         }else{
-            touchdown1(x,y,fps);
+            if (one_ring.alive) {
+                
+                one_ring.moveTo(x, y);
+                one_ring.dragged = true;
+                Tweenzor::add( &velfactor, velfactor, 1, 0,(int)(1 * fps), EASE_IN_OUT_SINE );
+            }
         }
         
     }    
@@ -120,8 +134,8 @@ public:
     
     void touchup1(int x, int y, float fps) {
         
-        if (one_ring.bDragged == true) {
-            one_ring.bDragged = false;
+        if (one_ring.dragged == true) {
+            one_ring.dragged = false;
             Tweenzor::add( &velfactor, velfactor, 0.2, 0,(int)(0.3 * fps), EASE_IN_OUT_SINE );
         }
         
