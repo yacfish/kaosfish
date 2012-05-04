@@ -97,16 +97,19 @@ public:
     
     void draw() {
         
-        ofPushStyle();
-        ofEnableBlendMode(OF_BLENDMODE_MULTIPLY);
+        //ofPushStyle();
+        ofEnableAlphaBlending();
         
         one_ring.draw();
         for(int i = 0; i< balls.size(); i++){
             balls[i].draw();
         }
+        
         ring_shockwave.draw();
         
-        ofPopStyle();
+        ofDisableAlphaBlending();
+        
+        //ofPopStyle();
         
     }
     
@@ -133,12 +136,9 @@ public:
 
         }else{
             if (one_ring.alive) {
-                
-                one_ring.moveTo(x, y);
-                one_ring.dragged = true;
-                Tweenzor::add( &velfactor, velfactor, 1, 0,(int)(1 * fps), EASE_IN_OUT_SINE );
-                
+                touchdown1(x,y,fps);
             }
+            
         }
         
     }    
@@ -150,9 +150,10 @@ public:
         if (one_ring.dragged == true) {
             
             one_ring.dragged = false;
+            
             Tweenzor::add( &velfactor, velfactor, 0.2, 0,(int)(0.3 * fps), EASE_IN_OUT_SINE );
             
-            ring_shockwave.expansion(one_ring.pos.x, one_ring.pos.y,10, fps);
+            ring_shockwave.expansion(one_ring.pos.x, one_ring.pos.y, 10, fps);
             
         }
         

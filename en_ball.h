@@ -57,5 +57,10 @@ public:
 		pos.set(x, y, 0);
 		vel.set(0, 0, 0);
 	}
-            
+    void die(){
+        
+        alive = false;
+        
+        
+    }
 };
