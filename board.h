@@ -7,17 +7,18 @@
 //
 #pragma once
 
-#include "ofxTweenzor.h"
+
 
 #include "base_object.h"
 #include "ring.h"
 #include "en_ball.h"
 #include "bg.h"
-
+#include "we_shockwave.h"
 
 class board {
 public:
     
+    we_shockwave ring_shockwave;
     ring one_ring;
 	vector <en_ball> balls;
     float velfactor;
@@ -64,16 +65,26 @@ public:
             
             if (break_bool == false) {
                 
-                balls[i].en_velfactor = velfactor;
+                balls[i].velfactor = velfactor;
                 balls[i].update();
                 
-                if (balls[i].check_ring_collision(one_ring.pos.x, one_ring.pos.y) == true) {
+                if (balls[i].alive == true) {
                     
-                    reinit();
-                    break_bool = true;
-                    one_ring.alive = false;
-                    
+                    if (balls[i].check_ring_collision(one_ring.pos.x, one_ring.pos.y) == true) {
+                        
+                        reinit();
+                        break_bool = true;
+                        one_ring.alive = false;
+                        
+                    }
                 }
+                
+                if (ring_shockwave.alive == true) {
+                    if (ring_shockwave.check_weapon_collision(balls[i].pos.x, balls[i].pos.y)) {
+                        balls[i].alive = false;
+                    }
+                }
+            
                 
             }
             
@@ -93,6 +104,7 @@ public:
         for(int i = 0; i< balls.size(); i++){
             balls[i].draw();
         }
+        ring_shockwave.draw();
         
         ofPopStyle();
         
@@ -125,6 +137,7 @@ public:
                 one_ring.moveTo(x, y);
                 one_ring.dragged = true;
                 Tweenzor::add( &velfactor, velfactor, 1, 0,(int)(1 * fps), EASE_IN_OUT_SINE );
+                
             }
         }
         
@@ -135,8 +148,12 @@ public:
     void touchup1(int x, int y, float fps) {
         
         if (one_ring.dragged == true) {
+            
             one_ring.dragged = false;
             Tweenzor::add( &velfactor, velfactor, 0.2, 0,(int)(0.3 * fps), EASE_IN_OUT_SINE );
+            
+            ring_shockwave.expansion(one_ring.pos.x, one_ring.pos.y,10, fps);
+            
         }
         
     } 

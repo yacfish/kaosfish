@@ -6,9 +6,27 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#ifndef DeathHold_base_enemy_h
-#define DeathHold_base_enemy_h
+#pragma once
+
+#include "base_object.h"
 
 
+class base_enemy : public base_object
+{
+public:
+    
+    
+        
+    //----------------------------------------------------------------	
+	bool check_ring_collision(float x, float y) {
+        if ( pow((pos.x-x),2)+pow((pos.y-y),2) < pow((float)TOUCH_RING_RADIUS+EN_BALL_RADIUS,2) ){
+            return true;
+        }
+        return false;
+    }
+//    void die() {
+//        
+//    }
 
-#endif
+
+};

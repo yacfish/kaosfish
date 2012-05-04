@@ -6,9 +6,22 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#ifndef DeathHold_base_weapon_h
-#define DeathHold_base_weapon_h
+#pragma once
+
+#include "base_object.h"
 
 
+class base_weapon : public base_object
+{
+public:
+    
+    bool check_weapon_collision(float x, float y) {
+        if ( pow((pos.x-x),2)+pow((pos.y-y),2) < pow((float)radius+EN_BALL_RADIUS,2) ){
+            return true;
+        }
+        return false;
+    }
+    
+    
+};
 
-#endif
