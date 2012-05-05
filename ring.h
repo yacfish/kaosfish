@@ -22,8 +22,7 @@ public:
 		dragged = false;
         
         chargecounter.set(0);
-        
-        //Tweenzor::add( &chargecounter, 0.0f,0.0f, 0.0f,0.0f, EASE_LINEAR );        
+         
 	}
 	
 	//----------------------------------------------------------------	

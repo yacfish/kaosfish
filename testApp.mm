@@ -25,11 +25,11 @@ void testApp::setup(){
 //--------------------------------------------------------------
 void testApp::update() {
     
-    	
+    Tweenzor::update();	
     
     fps = ( fps * 0.95 ) + ( ofGetFrameRate() * 0.05 );
     big_board.update(fps);  
-    Tweenzor::update();
+ 
 	
 }
 
