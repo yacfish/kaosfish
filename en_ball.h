@@ -5,18 +5,28 @@
 
 class en_ball : public base_enemy {
 public:
+    
+    float alpha;
+
 		
 	//----------------------------------------------------------------	
-	void init(int id) {
-		pos.set(ofRandomWidth(), ofRandomHeight(), 0);
-		float theta = ofRandom(0, 360);
-        vel.set(EN_BALL_SPEED * cos(theta), EN_BALL_SPEED * sin(theta), 0);
+	void init(float level) {
+		
+        if (ofRandom(0, 2) > 1) {
+            pos.set((int)(ofRandom(1)+0.5)*ofGetWidth(), ofRandomHeight(), 0);
+        }else{
+            pos.set(ofRandomWidth(), (int)(ofRandom(1)+0.5) * ofGetHeight(), 0);
+        }
+        
+        float theta = ofRandom(0, 360);
+        vel.set(EN_BALL_SPEED * ((level-1)*0.05+1) * cos(theta), EN_BALL_SPEED * ((level-1)*0.05+1) * sin(theta), 0);
 		
 		radius = EN_BALL_RADIUS;
         alive = true;
 		col.set( 255.0f, 50.0f, 50.0f, 255.0f );
         
 		velfactor = 0;
+        alpha = 255;
         
 		
 	}
@@ -47,20 +57,36 @@ public:
 			vel.y *= -1; 
 		}
 	}
+    
 	
 	//----------------------------------------------------------------
    
+    void draw() {
+        col.a = (int)alpha;
+        ofSetColor(col);		
+        ofCircle(pos.x, pos.y, radius);
+	}
+
+	
+	//----------------------------------------------------------------	
+    
+    
+	void moveTo(int x, int y) {
+        
+		pos.set(x, y, 0);
+		vel.set(0, 0, 0);
+        
+	}
     
 	
 	//----------------------------------------------------------------	
-	void moveTo(int x, int y) {
-		pos.set(x, y, 0);
-		vel.set(0, 0, 0);
-	}
-    void die(){
+    
+    
+    void die(float fps){
         
         alive = false;
-        
+        Tweenzor::add( &alpha, alpha, 0, 0,(int)(0.1 * fps), EASE_IN_OUT_SINE);
         
     }
+    
 };

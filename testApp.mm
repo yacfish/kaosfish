@@ -25,20 +25,23 @@ void testApp::update() {
     	
     Tweenzor::update();
     fps = ( fps * 0.95 ) + ( ofGetFrameRate() * 0.05 );
-    big_board.update();    
+    big_board.update(fps);    
 	
 }
 
 //--------------------------------------------------------------
 void testApp::draw() {
 	ofSetColor(54);
-	ofDrawBitmapString("death hold", 10, 20);
-    ofDrawBitmapString("fps: " + ofToString(fps, 2) , 10, 50);
-    
-	ofEnableAlphaBlending();
-	//ofSetColor(255);
 	
-    big_board.draw();
+    
+    
+
+	
+	ofEnableAlphaBlending();
+	
+    big_board.draw(fps);
+    
+    ofDisableAlphaBlending();
     
 }
 

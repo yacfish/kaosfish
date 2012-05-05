@@ -15,6 +15,12 @@ class base_enemy : public base_object
 {
 public:
     
+    float ring_dist;
+    
+    float distance_from(float x, float y){
+        ring_dist = pow((pos.x-x),2)+pow((pos.y-y),2);
+        return ring_dist;
+    }
     
         
     //----------------------------------------------------------------	
@@ -24,9 +30,5 @@ public:
         }
         return false;
     }
-//    void die() {
-//        
-//    }
-
 
 };

@@ -8,7 +8,7 @@ class ring : public base_object {
 public:
 	ofColor touchCol;
 	bool dragged;
-	
+	float chargecounter;
 
 	//----------------------------------------------------------------	
 	void init() {
@@ -20,6 +20,7 @@ public:
         touchCol.set( 50.0f, 50.0f, 255.0f, 255.0f );
 				
 		dragged = false;
+        chargecounter = 0;
         
 	}
 	
@@ -43,5 +44,6 @@ public:
 	void moveTo(int x, int y) {
 		pos.set(x, y, 0);
 		vel.set(0, 0, 0);
+        
 	}
 };

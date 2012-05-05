@@ -20,7 +20,7 @@ public:
     we_shockwave() {
         
 		
-		col.set( 50.0, 50.0, 255.0, 255 );
+		col.set( 50.0, 50.0, 255.0, 0 );
         
        
         alive = false;        

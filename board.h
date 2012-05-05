@@ -17,24 +17,33 @@
 
 class board {
 public:
-    
+    bg the_bg;
     we_shockwave ring_shockwave;
     ring one_ring;
 	vector <en_ball> balls;
     float velfactor;
-    
-    
+    float level;
+    float del;
+    float enemy_count;
+    float closest_enemy;
+    float elapsed;
     //-----------------------------
     
     void init() {
+        elapsed = 0;
         
+        Tweenzor::add( &elapsed, 0, 660, 0.0f,660.0f, EASE_LINEAR );
+        the_bg.init(level);
         velfactor = 0;
         one_ring.init();
-        
-        balls.assign(5, en_ball());
+        level = 1;
+        balls.assign(15, en_ball());
         
         for(int i=0; i<balls.size(); i++){
-            balls[i].init(i);
+            balls[i].init(level);
+            
+            
+
         }
         
         
@@ -44,12 +53,17 @@ public:
     
     void reinit() {
         
-        velfactor = 0;
+        
+        
+        // velfactor = 0;
+         
+        Tweenzor::add( &velfactor, velfactor, 0, 0,1, EASE_LINEAR );
+        
+        the_bg.init(level);
         one_ring.init();
         
-        
         for(int i=0; i<balls.size(); i++){
-            balls[i].init(i);
+            balls[i].init(level);
         }
         
         
@@ -58,7 +72,8 @@ public:
     
     //-----------------------------
     
-    void update() {
+    void update(float fps) {
+        the_bg.update();
         one_ring.update();
         bool break_bool = false;
         for(int i=0; i < balls.size(); i++){
@@ -81,35 +96,60 @@ public:
                 
                 if (ring_shockwave.alive == true) {
                     if (ring_shockwave.check_weapon_collision(balls[i].pos.x, balls[i].pos.y)) {
-                        balls[i].alive = false;
+                        
+                        balls[i].die(fps);
+                        
+//                        for(int j=0; j < balls.size(); j++){
+//                            
+//                        }
+                            
                     }
+                    
                 }
             
-                
             }
             
         }
-        
-        
+        enemy_count= 0;
+        for(int i=0; i < balls.size(); i++){
+            if (balls[i].alive) {
+                enemy_count++;
+            }
+        }
+        if (enemy_count == 0){
+            level++;
+            reinit();
+            one_ring.dragged = false;
+        }
+        closest_enemy = 1000000;
+        for(int i=0; i < balls.size(); i++){
+            if (balls[i].alive) {
+                float ball_ring_dist = balls[i].distance_from(one_ring.pos.x, one_ring.pos.y);
+                if (ball_ring_dist < closest_enemy) {
+                    closest_enemy = ball_ring_dist;
+                }
+            }
+        }
     }
     
     //-----------------------------
     
-    void draw() {
+    void draw(float fps) {
         
-        //ofPushStyle();
         ofEnableAlphaBlending();
+        the_bg.draw(fps, level,enemy_count,closest_enemy, elapsed);
         
         one_ring.draw();
         for(int i = 0; i< balls.size(); i++){
+            
             balls[i].draw();
+            
         }
         
         ring_shockwave.draw();
         
         ofDisableAlphaBlending();
         
-        //ofPopStyle();
         
     }
     
@@ -122,6 +162,7 @@ public:
             one_ring.moveTo(x, y);
             one_ring.dragged = true;
             Tweenzor::add( &velfactor, velfactor, 1, 0,(int)(1 * fps), EASE_IN_OUT_SINE );
+            Tweenzor::add( &one_ring.chargecounter, 0, 10, (int)(0 * fps),(int)(2 * fps), EASE_LINEAR );
         }
     }
     
@@ -136,7 +177,9 @@ public:
 
         }else{
             if (one_ring.alive) {
+                
                 touchdown1(x,y,fps);
+                
             }
             
         }
@@ -153,9 +196,18 @@ public:
             
             Tweenzor::add( &velfactor, velfactor, 0.2, 0,(int)(0.3 * fps), EASE_IN_OUT_SINE );
             
-            ring_shockwave.expansion(one_ring.pos.x, one_ring.pos.y, 10, fps);
+            
+            ring_shockwave.expansion(one_ring.pos.x, one_ring.pos.y, one_ring.chargecounter, fps);
             
         }
         
     } 
+    
+    //-----------------------------
+
+    
+    void die(){
+        
+        
+    }
 };
