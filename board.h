@@ -80,7 +80,7 @@ public:
         
         one_ring.update();
         
-        one_ring_ch_shockwave.radius= one_ring.chargecounter;
+        one_ring_ch_shockwave.radius = one_ring.chargecounter.twf;
         
         bool break_bool = false;
         for(int i=0; i < balls.size(); i++){
@@ -171,8 +171,8 @@ public:
             one_ring.dragged = true;
             Tweenzor::add( &velfactor, velfactor, 1, 0,(int)(1 * fps), EASE_IN_OUT_SINE );
            // one_ring.chargecounter= 0;
-            Tweenzor::add( &one_ring.chargecounter, 0.0f,0.0f, 0.0f,0.0f, EASE_LINEAR );
-            Tweenzor::add( &one_ring.chargecounter, 1, 10, (int)(0 * fps),(int)(2 * fps), EASE_LINEAR );
+            one_ring.chargecounter.set(0.0f);
+            one_ring.chargecounter.set( 1, 10,(int)(2 * fps));
             
         }
     }
@@ -206,9 +206,9 @@ public:
             one_ring.dragged = false;
             
             Tweenzor::add( &velfactor, velfactor, 0.2, 0,(int)(0.3 * fps), EASE_IN_OUT_SINE );
-            Tweenzor::add( &one_ring.chargecounter, 0.0f,0.0f, 0.0f,0.0f, EASE_LINEAR );
+            one_ring.chargecounter.set(0.0f);
             
-            one_ring_shockwave.expansion(one_ring.pos.x, one_ring.pos.y, one_ring.chargecounter, fps);
+            one_ring_shockwave.expansion(one_ring.pos.x, one_ring.pos.y, one_ring.chargecounter.twf, fps);
             
         }
         

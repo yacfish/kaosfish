@@ -6,7 +6,8 @@
 #define EN_BALL_SPEED           ofGetWidth()/70 //10
 
 
-#include "ofxTweenzor.h"
+//#include "ofxTweenzor.h"
+#include "tw_float.h"
 
 class base_object
 {

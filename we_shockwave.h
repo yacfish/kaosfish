@@ -14,7 +14,7 @@ class we_shockwave : public base_weapon
 {
 public:
     
-    float alpha;
+    tw_float alpha;
     float charge_factor;
 
     we_shockwave() {
@@ -32,7 +32,7 @@ public:
         pos.x = x;
         pos.y = y;
         charge_factor = charge;
-        alpha = 120;
+        alpha.set(120);
         if (charge_factor > 0){
             Tweenzor::add( &radius, RING_RADIUS, RING_RADIUS*charge_factor, 0,(int)(0.3 * fps), EASE_IN_OUT_SINE );
             Tweenzor::getTween( &radius )->addListener( Tween::COMPLETE, this, &we_shockwave::die );
@@ -44,7 +44,7 @@ public:
     }
     
     void draw() {
-        col.a = (int)alpha;
+        col.a = (int)alpha.twf;
         ofSetColor(col);		
         ofCircle(pos.x, pos.y, radius);
 	}
@@ -52,7 +52,7 @@ public:
     void die(float fps) {
         
         alive = false;
-        Tweenzor::add( &alpha, alpha, 0, 0,(int)(0.1 * fps), EASE_IN_OUT_SINE);
+        alpha.set( 0, 0.1 * fps);
         
     }
     

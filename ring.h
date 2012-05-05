@@ -8,7 +8,7 @@ class ring : public base_object {
 public:
 	ofColor touchCol;
 	bool dragged;
-	float chargecounter;
+	tw_float chargecounter;
 
 	//----------------------------------------------------------------	
 	void init() {
@@ -20,8 +20,10 @@ public:
         touchCol.set( 50.0f, 50.0f, 255.0f, 255.0f );
 				
 		dragged = false;
-        Tweenzor::add( &chargecounter, 0.0f,0.0f, 0.0f,0.0f, EASE_LINEAR );
         
+        chargecounter.set(0);
+        
+        //Tweenzor::add( &chargecounter, 0.0f,0.0f, 0.0f,0.0f, EASE_LINEAR );        
 	}
 	
 	//----------------------------------------------------------------	

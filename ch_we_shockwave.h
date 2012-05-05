@@ -14,7 +14,7 @@ class ch_we_shockwave : public we_shockwave
 {
 public:
     
-    float alpha;
+    tw_float alpha;
     float charge_factor;
 
     ch_we_shockwave() {
@@ -32,8 +32,8 @@ public:
         pos.x = x;
         pos.y = y;
         charge_factor = charge;
-        Tweenzor::add( &charge_factor, charge, charge, 0,(int)(0.1 * fps), EASE_IN_OUT_SINE);
-        Tweenzor::add( &alpha, 120, 120, 0.0f,0.0f, EASE_IN_OUT_SINE);
+        Tweenzor::add( &charge_factor, charge, 0, 0,(int)(0.1 * fps), EASE_IN_OUT_SINE);
+        alpha.set(120, 0);
         if (charge_factor > 0){
             Tweenzor::add( &radius, TOUCH_RING_RADIUS, TOUCH_RING_RADIUS * charge_factor, 0,(int)(0.3 * fps), EASE_IN_OUT_SINE );
             Tweenzor::getTween( &radius )->addListener( Tween::COMPLETE, this, &ch_we_shockwave::die );
@@ -47,7 +47,7 @@ public:
     void draw(ofStyle fill) {
         ofPushStyle();
         ofSetStyle(fill);	
-        col.a = (int)alpha;
+        col.a = (int)(alpha.twf);
         ofSetColor(col);		
         ofCircle(pos.x, pos.y, radius);
         ofPopStyle();
@@ -56,7 +56,7 @@ public:
     void die(float fps) {
         
         alive = false;
-        Tweenzor::add( &alpha, alpha, 0, 0,(int)(0.1 * fps), EASE_IN_OUT_SINE);
+        alpha.set(0,0.1 * fps);
         
     }
     
