@@ -137,6 +137,7 @@ public:
     void draw(float fps) {
         
         ofEnableAlphaBlending();
+        
         the_bg.draw(fps, level,enemy_count,closest_enemy, elapsed);
         
         one_ring.draw();
@@ -162,7 +163,8 @@ public:
             one_ring.moveTo(x, y);
             one_ring.dragged = true;
             Tweenzor::add( &velfactor, velfactor, 1, 0,(int)(1 * fps), EASE_IN_OUT_SINE );
-            Tweenzor::add( &one_ring.chargecounter, 0, 10, (int)(0 * fps),(int)(2 * fps), EASE_LINEAR );
+            Tweenzor::add( &one_ring.chargecounter, 0,0, 0,1, EASE_LINEAR );
+            Tweenzor::add( &one_ring.chargecounter, 1, 10, (int)(1 * fps),(int)(2 * fps), EASE_LINEAR );
         }
     }
     

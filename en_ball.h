@@ -26,8 +26,10 @@ public:
 		col.set( 255.0f, 50.0f, 50.0f, 255.0f );
         
 		velfactor = 0;
-        alpha = 255;
         
+        //alpha = 255;
+        
+        Tweenzor::add( &alpha, alpha, 255, 0,1, EASE_IN_OUT_SINE);
 		
 	}
 	

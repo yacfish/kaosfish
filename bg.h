@@ -90,6 +90,20 @@ public:
     
     void draw(float fps,int level, float enemy_count, float closest_enemy, float elapsed) {
         
+        ofSetColor(col);		
+        ofCircle(pos.x, pos.y, radius);
+        
+        if (elapsed > 300){
+            elapsed = 300;
+        }
+        elapsed = 300 - elapsed;
+        ofSetColor(150,150,150);
+        
+        int m= elapsed/ 60;
+        float sf= (int)((elapsed/ 60- m)*60);
+        int s= (int)sf;
+       
+        
         for (int i=0; i < 6; i++ ) {
             for (int j=0; j < 5; j++ ) {
                 ofSetColor(100,100,100,100);
@@ -98,8 +112,8 @@ public:
                 ofDrawBitmapString("level:" + ofToString(level) , (int)level_offset+(i * 200), 130+(j * 330));
                 ofDrawBitmapString("enemy_count:" + ofToString(enemy_count) , en_cnt_offset+(i * 200), 185+(j * 330));
                 ofDrawBitmapString("closest_enemy_dist:" + ofToString((int)pow((float)closest_enemy,(float)0.5)) , (int)(closest_enemy_offset+(i * 200)), 240+(j * 330));
-                ofDrawBitmapString("elapsed:" + ofToString((int)elapsed), (int)20+(i * 200), 295+(j * 330));
-                ofDrawBitmapString("elapsed:" + ofToString((int)elapsed), (int)120+(i * 200), 295+(j * 330));
+                ofDrawBitmapString(ofToString(m) + ":" + ofToString(s), (int)20+(i * 200), 295+(j * 330));
+                ofDrawBitmapString(ofToString(m) + ":" + ofToString(s), (int)120+(i * 200), 295+(j * 330));
             }
         }
     }

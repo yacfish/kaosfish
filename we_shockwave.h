@@ -33,8 +33,10 @@ public:
         pos.y = y;
         charge_factor = charge;
         alpha = 120;
-        Tweenzor::add( &radius, RING_RADIUS, RING_RADIUS*charge_factor, 0,(int)(0.3 * fps), EASE_IN_OUT_SINE );
-        Tweenzor::getTween( &radius )->addListener( Tween::COMPLETE, this, &we_shockwave::die );
+        if (charge_factor > 0){
+            Tweenzor::add( &radius, RING_RADIUS, RING_RADIUS*charge_factor, 0,(int)(0.3 * fps), EASE_IN_OUT_SINE );
+            Tweenzor::getTween( &radius )->addListener( Tween::COMPLETE, this, &we_shockwave::die );
+        }
     }
     
     void update() {

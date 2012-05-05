@@ -3,7 +3,7 @@
 #define TOUCH_RING_RADIUS   ofGetWidth()/25 //40
 #define TOUCH_SHOCKWAVE_MAX_RADIUS   ofGetWidth()/6 //170
 #define EN_BALL_RADIUS			ofGetWidth()/50 //20
-#define EN_BALL_SPEED           ofGetWidth()/100 //10
+#define EN_BALL_SPEED           ofGetWidth()/70 //10
 
 
 #include "ofxTweenzor.h"
