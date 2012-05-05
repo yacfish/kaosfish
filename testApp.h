@@ -40,6 +40,6 @@ public:
     board big_board;
 	ofImage arrow;
     float fps;
-    
+    ofStyle fill;
     
 };

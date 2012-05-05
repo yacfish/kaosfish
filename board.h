@@ -13,12 +13,13 @@
 #include "ring.h"
 #include "en_ball.h"
 #include "bg.h"
-#include "we_shockwave.h"
+#include "ch_we_shockwave.h"
 
 class board {
 public:
     bg the_bg;
-    we_shockwave ring_shockwave;
+    we_shockwave one_ring_shockwave;
+    ch_we_shockwave one_ring_ch_shockwave;
     ring one_ring;
 	vector <en_ball> balls;
     float velfactor;
@@ -27,6 +28,8 @@ public:
     float enemy_count;
     float closest_enemy;
     float elapsed;
+    
+    
     //-----------------------------
     
     void init() {
@@ -74,7 +77,11 @@ public:
     
     void update(float fps) {
         the_bg.update();
+        
         one_ring.update();
+        
+        one_ring_ch_shockwave.radius= one_ring.chargecounter;
+        
         bool break_bool = false;
         for(int i=0; i < balls.size(); i++){
             
@@ -94,15 +101,11 @@ public:
                     }
                 }
                 
-                if (ring_shockwave.alive == true) {
-                    if (ring_shockwave.check_weapon_collision(balls[i].pos.x, balls[i].pos.y)) {
+                if (one_ring_shockwave.alive == true) {
+                    if (one_ring_shockwave.check_weapon_collision(balls[i].pos.x, balls[i].pos.y)) {
                         
                         balls[i].die(fps);
-                        
-//                        for(int j=0; j < balls.size(); j++){
-//                            
-//                        }
-                            
+                                                    
                     }
                     
                 }
@@ -118,6 +121,7 @@ public:
         }
         if (enemy_count == 0){
             level++;
+            one_ring_shockwave.die(fps);
             reinit();
             one_ring.dragged = false;
         }
@@ -134,20 +138,23 @@ public:
     
     //-----------------------------
     
-    void draw(float fps) {
+    void draw(float fps, ofStyle fill) {
         
         ofEnableAlphaBlending();
+        
+        one_ring_ch_shockwave.draw(fill);
         
         the_bg.draw(fps, level,enemy_count,closest_enemy, elapsed);
         
         one_ring.draw();
+        
         for(int i = 0; i< balls.size(); i++){
             
             balls[i].draw();
             
         }
         
-        ring_shockwave.draw();
+        one_ring_shockwave.draw();
         
         ofDisableAlphaBlending();
         
@@ -163,8 +170,10 @@ public:
             one_ring.moveTo(x, y);
             one_ring.dragged = true;
             Tweenzor::add( &velfactor, velfactor, 1, 0,(int)(1 * fps), EASE_IN_OUT_SINE );
-            Tweenzor::add( &one_ring.chargecounter, 0,0, 0,1, EASE_LINEAR );
-            Tweenzor::add( &one_ring.chargecounter, 1, 10, (int)(1 * fps),(int)(2 * fps), EASE_LINEAR );
+           // one_ring.chargecounter= 0;
+            Tweenzor::add( &one_ring.chargecounter, 0.0f,0.0f, 0.0f,0.0f, EASE_LINEAR );
+            Tweenzor::add( &one_ring.chargecounter, 1, 10, (int)(0 * fps),(int)(2 * fps), EASE_LINEAR );
+            
         }
     }
     
@@ -197,9 +206,9 @@ public:
             one_ring.dragged = false;
             
             Tweenzor::add( &velfactor, velfactor, 0.2, 0,(int)(0.3 * fps), EASE_IN_OUT_SINE );
+            Tweenzor::add( &one_ring.chargecounter, 0.0f,0.0f, 0.0f,0.0f, EASE_LINEAR );
             
-            
-            ring_shockwave.expansion(one_ring.pos.x, one_ring.pos.y, one_ring.chargecounter, fps);
+            one_ring_shockwave.expansion(one_ring.pos.x, one_ring.pos.y, one_ring.chargecounter, fps);
             
         }
         

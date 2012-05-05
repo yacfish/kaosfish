@@ -16,6 +16,9 @@ void testApp::setup(){
     fps = 0;
     big_board.init();
     
+    fill.bFill = false;
+
+    
 }
 
 
@@ -31,15 +34,10 @@ void testApp::update() {
 
 //--------------------------------------------------------------
 void testApp::draw() {
-	ofSetColor(54);
-	
-    
-    
-
 	
 	ofEnableAlphaBlending();
 	
-    big_board.draw(fps);
+    big_board.draw(fps,fill);
     
     ofDisableAlphaBlending();
     

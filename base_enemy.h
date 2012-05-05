@@ -25,9 +25,9 @@ public:
         
     //----------------------------------------------------------------	
 	bool check_ring_collision(float x, float y) {
-        if ( pow((pos.x-x),2)+pow((pos.y-y),2) < pow((float)TOUCH_RING_RADIUS+EN_BALL_RADIUS,2) ){
-            return true;
-        }
+//        if ( pow((pos.x-x),2)+pow((pos.y-y),2) < pow((float)TOUCH_RING_RADIUS+EN_BALL_RADIUS,2) ){
+//            return true;
+//        }
         return false;
     }
 
