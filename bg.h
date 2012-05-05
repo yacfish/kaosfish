@@ -9,7 +9,7 @@
 #pragma once
 
 #include "base_object.h"
-
+//#include <iostream>
 
 class bg : public base_object {
 public:
@@ -99,10 +99,12 @@ public:
         elapsed = 300 - elapsed;
         ofSetColor(150,150,150);
         
-        int m= elapsed/ 60;
-        float sf= (int)((elapsed/ 60- m)*60);
-        int s= (int)sf;
-       
+        int minute= elapsed/ 60;
+        float secondf= (int)((elapsed/ 60- minute)*60);
+        int second= (int)secondf;
+        stringstream ss;
+        ss << setw(2) << setfill('0') << (int)minute;
+        string formattedminutes = ss.str();
         
         for (int i=0; i < 6; i++ ) {
             for (int j=0; j < 5; j++ ) {
@@ -112,8 +114,8 @@ public:
                 ofDrawBitmapString("level:" + ofToString(level) , (int)level_offset+(i * 200), 130+(j * 330));
                 ofDrawBitmapString("enemy_count:" + ofToString(enemy_count) , en_cnt_offset+(i * 200), 185+(j * 330));
                 ofDrawBitmapString("closest_enemy_dist:" + ofToString((int)pow((float)closest_enemy,(float)0.5)) , (int)(closest_enemy_offset+(i * 200)), 240+(j * 330));
-                ofDrawBitmapString(ofToString(m) + ":" + ofToString(s), (int)20+(i * 200), 295+(j * 330));
-                ofDrawBitmapString(ofToString(m) + ":" + ofToString(s), (int)120+(i * 200), 295+(j * 330));
+                ofDrawBitmapString(formattedminutes + ":" + ofToString(second), (int)20+(i * 200), 295+(j * 330));
+                ofDrawBitmapString(formattedminutes + ":" + ofToString(second), (int)120+(i * 200), 295+(j * 330));
             }
         }
     }
