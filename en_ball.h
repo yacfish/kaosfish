@@ -16,7 +16,7 @@ public:
         if (ofRandom(0, 2) > 1) {
             pos.set(((int)(ofRandom(1)+0.5)*ofGetWidth())*0.9+ofGetWidth()*0.05, ofRandomHeight()*0.9+ofGetHeight()*0.05, 0);
         }else{
-            pos.set(ofRandomWidth()*0.9+ofGetWidth()*0.05, ((int)(ofRandom(1)+0.5)*ofGetHeight())*0.9+ofGetHeight()*0.05, 0);
+            pos.set(ofRandomWidth()*0.9+ofGetWidth()*0.05,((int)(ofRandom(1)+0.5))*ofGetHeight()*0.9+ofGetHeight()*0.05, 0);
         }
         
         float theta = ofRandom(0, 360);
@@ -61,7 +61,7 @@ public:
 			pos.y = ofGetHeight() - EN_BALL_RADIUS;
 			vel.y *= -1; 
 		}
-        enemyrotation= ((int)enemyrotation+10)%360;
+        enemyrotation= (int)((enemyrotation+10)*60/ofGetFrameRate())%360;
 	}
     
 	
@@ -72,9 +72,11 @@ public:
         ofSetColor(col);		
         
         ofPushMatrix ();
-        ofTranslate (-25.0, -25.0);// Center of the picture
+        ofTranslate (pos.x, pos.y);
+        // Center of the picture
         ofRotate (enemyrotation);// Rotation// Drawing with a shift:
-        sprite_enemy.draw(pos.x, pos.y);
+//        ofTranslate (0, 0);
+        sprite_enemy.draw(-25,-25);
         ofPopMatrix ();
 	}
 
