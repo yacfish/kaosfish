@@ -26,6 +26,8 @@ public:
         
         chargecounter.set(0);
         destruct_timer.set(0);
+        
+        
         auto_destruct_time = 2;
          
 	}

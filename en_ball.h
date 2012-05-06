@@ -37,8 +37,8 @@ public:
     void update() {
 
         // add vel to pos
-        pos.x += vel.x * velfactor.twf;
-        pos.y += vel.y * velfactor.twf;
+        pos.x += vel.x * velfactor.twf * 60/ofGetFrameRate();
+        pos.y += vel.y * velfactor.twf * 60/ofGetFrameRate();
 
         // check boundaries
         if(pos.x < EN_BALL_RADIUS) {
