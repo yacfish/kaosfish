@@ -103,7 +103,7 @@ public:
         alpha.set(0, 0.2);
         text_size.set(2, 0.5);
         text_alpha.set(0, 0.5);
-        text_show.loadFont("Arial.ttf", ofGetWidth()/10);
+        
         
     }
 

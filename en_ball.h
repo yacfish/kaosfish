@@ -13,9 +13,9 @@ public:
 	void init(float level) {
 		
         if (ofRandom(0, 2) > 1) {
-            pos.set((int)(ofRandom(1)+0.5)*ofGetWidth(), ofRandomHeight(), 0);
+            pos.set(((int)(ofRandom(1)+0.5)*ofGetWidth())*0.9+ofGetWidth()*0.05, ofRandomHeight()*0.9+ofGetHeight()*0.05, 0);
         }else{
-            pos.set(ofRandomWidth(), (int)(ofRandom(1)+0.5) * ofGetHeight(), 0);
+            pos.set(ofRandomWidth()*0.9+ofGetWidth()*0.05, ((int)(ofRandom(1)+0.5)*ofGetHeight())*0.9+ofGetHeight()*0.05, 0);
         }
         
         float theta = ofRandom(0, 360);
@@ -25,6 +25,7 @@ public:
         alive = true;
 		col.set( 255.0f, 255.0f, 255.0f, 255.0f );
         sprite_enemy.loadImage("images/enemy1_64.png");
+        sprite_enemy.resize(EN_BALL_RADIUS *2.1, EN_BALL_RADIUS *2.1);
         
 		velfactor.set(0);
         
@@ -67,7 +68,7 @@ public:
     void draw() {
         col.a = (int)alpha.twf;
         ofSetColor(col);		
-        sprite_enemy.draw(pos.x, pos.y);
+        sprite_enemy.draw(pos.x-(sprite_enemy.getWidth()/2), pos.y-(sprite_enemy.getHeight() /2));
 	}
 
 	
