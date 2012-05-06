@@ -35,8 +35,8 @@ public:
         Tweenzor::add( &charge_factor, charge, 0, 0,(int)(0.1 * fps), EASE_IN_OUT_SINE);
         alpha.set(120, 0);
         if (charge_factor > 0){
-            Tweenzor::add( &radius, TOUCH_RING_RADIUS, TOUCH_RING_RADIUS * charge_factor, 0,(int)(0.3 * fps), EASE_IN_OUT_SINE );
-            Tweenzor::getTween( &radius )->addListener( Tween::COMPLETE, this, &ch_we_shockwave::die );
+            radius.set(TOUCH_RING_RADIUS, TOUCH_RING_RADIUS * charge_factor,(int)(0.3 * fps));
+            Tweenzor::getTween( &radius.twf )->addListener( Tween::COMPLETE, this, &ch_we_shockwave::die );
         }
     }
     
@@ -49,7 +49,7 @@ public:
         ofSetStyle(fill);	
         col.a = (int)(alpha.twf);
         ofSetColor(col);		
-        ofCircle(pos.x, pos.y, radius);
+        ofCircle(pos.x, pos.y, radius.twf);
         ofPopStyle();
 	}
     

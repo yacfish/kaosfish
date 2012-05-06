@@ -3,15 +3,12 @@
 //--------------------------------------------------------------
 void testApp::setup(){	
     
-	ofBackground(225, 225, 225, 20);
+	ofBackground(255,255,255, 20);
 	ofSetCircleResolution(80);
-	
 	ofxRegisterMultitouch(this);
-	
 	ofxAccelerometer.setup();
-
 	ofxiPhoneAlerts.addListener(this);
-	
+    
     Tweenzor::init();
     fps = 0;
     big_board.init();

@@ -16,7 +16,7 @@ class base_weapon : public base_object
 public:
     
     bool check_weapon_collision(float x, float y) {
-        if ( pow((pos.x-x),2)+pow((pos.y-y),2) < pow((float)radius+EN_BALL_RADIUS,2) ){
+        if ( pow((pos.x-x),2)+pow((pos.y-y),2) < pow((float)radius.twf+EN_BALL_RADIUS,2) ){
             return true;
         }
         return false;

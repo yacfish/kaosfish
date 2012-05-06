@@ -15,8 +15,8 @@ public:
     ofPoint pos;
     ofPoint vel;
     ofColor col;
-    float velfactor;
-    float radius;
+    tw_float velfactor;
+    tw_float radius;
     bool alive;
     
     
@@ -30,9 +30,10 @@ public:
     void draw() {
         
         ofSetColor(col);		
-        ofCircle(pos.x, pos.y, radius);
+        ofCircle(pos.x, pos.y, radius.twf);
 	}
     
     void moveTo(int x, int y) {
+        
     }
 };

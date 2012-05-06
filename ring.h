@@ -9,7 +9,7 @@ public:
 	ofColor touchCol;
 	bool dragged;
 	tw_float chargecounter;
-
+    int current_life_count;
 	//----------------------------------------------------------------	
 	void init() {
         
@@ -18,33 +18,32 @@ public:
 		col.set( 50.0f, 50.0f, 255.0f, 120.0f );
         
         touchCol.set( 50.0f, 50.0f, 255.0f, 255.0f );
-				
+        
 		dragged = false;
         
         chargecounter.set(0);
+        
+        current_life_count = 5;
+        
          
 	}
 	
 	//----------------------------------------------------------------	
     void update() {
-     
+        if( dragged ){
+			radius.set(TOUCH_RING_RADIUS);
+		}else{
+			radius.set(RING_RADIUS);
+		}
+
 	}
 	
 	//----------------------------------------------------------------
 	void draw() {
-		if( dragged ){
-			ofSetColor(touchCol);
-			ofCircle(pos.x, pos.y, TOUCH_RING_RADIUS);
-		}else{
-			ofSetColor(col);		
-			ofCircle(pos.x, pos.y, RING_RADIUS);
-		}
-	}
-	
-	//----------------------------------------------------------------	
-	void moveTo(int x, int y) {
-		pos.set(x, y, 0);
-		vel.set(0, 0, 0);
-        
-	}
+        ofSetColor(touchCol);
+        ofCircle(pos.x, pos.y, radius.twf);
+    }
+    void moveTo(int x, int y) {
+        pos.set(x,y,0);
+    }
 };

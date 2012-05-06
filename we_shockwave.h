@@ -34,8 +34,9 @@ public:
         charge_factor = charge;
         alpha.set(120);
         if (charge_factor > 0){
-            Tweenzor::add( &radius, RING_RADIUS, RING_RADIUS*charge_factor, 0,(int)(0.3 * fps), EASE_IN_OUT_SINE );
-            Tweenzor::getTween( &radius )->addListener( Tween::COMPLETE, this, &we_shockwave::die );
+            radius.set(RING_RADIUS, RING_RADIUS*charge_factor, (int)(0.3 * fps));
+            Tweenzor::getTween( &radius.twf )->addListener( Tween::COMPLETE, this, &we_shockwave::die );
+          
         }
     }
     
@@ -46,7 +47,7 @@ public:
     void draw() {
         col.a = (int)alpha.twf;
         ofSetColor(col);		
-        ofCircle(pos.x, pos.y, radius);
+        ofCircle(pos.x, pos.y, radius.twf);
 	}
     
     void die(float fps) {

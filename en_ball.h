@@ -6,7 +6,7 @@
 class en_ball : public base_enemy {
 public:
     
-    float alpha;
+    tw_float alpha;
 
 		
 	//----------------------------------------------------------------	
@@ -21,15 +21,15 @@ public:
         float theta = ofRandom(0, 360);
         vel.set(EN_BALL_SPEED * ((level-1)*0.05+1) * cos(theta), EN_BALL_SPEED * ((level-1)*0.05+1) * sin(theta), 0);
 		
-		radius = EN_BALL_RADIUS;
+		radius.set(EN_BALL_RADIUS);
         alive = true;
 		col.set( 255.0f, 50.0f, 50.0f, 255.0f );
         
-		velfactor = 0;
+		velfactor.set(0);
         
         //alpha = 255;
         
-        Tweenzor::add( &alpha, alpha, 255, 0,1, EASE_IN_OUT_SINE);
+        alpha.set(255);
 		
 	}
 	
@@ -37,8 +37,8 @@ public:
     void update() {
 
         // add vel to pos
-        pos.x += vel.x * velfactor;
-        pos.y += vel.y * velfactor;
+        pos.x += vel.x * velfactor.twf;
+        pos.y += vel.y * velfactor.twf;
 
         // check boundaries
         if(pos.x < EN_BALL_RADIUS) {
@@ -64,9 +64,9 @@ public:
 	//----------------------------------------------------------------
    
     void draw() {
-        col.a = (int)alpha;
+        col.a = (int)alpha.twf;
         ofSetColor(col);		
-        ofCircle(pos.x, pos.y, radius);
+        ofCircle(pos.x, pos.y, radius.twf);
 	}
 
 	
@@ -87,7 +87,7 @@ public:
     void die(float fps){
         
         alive = false;
-        Tweenzor::add( &alpha, alpha, 0, 0,(int)(0.1 * fps), EASE_IN_OUT_SINE);
+        alpha.set( 0,(int)(0.1 * fps));
         
     }
     

@@ -16,23 +16,33 @@ class tw_float
 {
 public:
     float twf;
-    float duration;
-       
+    
     tw_float(){
         twf = 0;
-        duration = 0;
     }
     
     void set(float float_to_set) {
-        Tweenzor::add( &twf, twf, float_to_set, 0,1, EASE_LINEAR );
+        twf = float_to_set;
+        Tweenzor::add( &twf, float_to_set, float_to_set, 0,1, EASE_LINEAR );
     }
     
-    void set(float float_to_set, float duration) {
-        Tweenzor::add( &twf, twf, float_to_set, 0, (int)duration, EASE_LINEAR );
+    void set(float float_to_set, int duration) {
+        Tweenzor::add( &twf, twf, float_to_set, 0, duration, EASE_LINEAR );
     }
     
-    void set(float float_to_start_from, float float_to_set, float duration) {
-        Tweenzor::add( &twf, float_to_start_from, float_to_set, 0, (int)duration, EASE_LINEAR );
+    void set(float float_to_start_from, float float_to_set, int duration) {
+        twf = float_to_start_from;
+        Tweenzor::add( &twf, float_to_start_from, float_to_set, 0, duration, EASE_LINEAR );
+    }
+    
+    void set( float float_to_set, int duration, int EASE_curve) {
+        Tweenzor::add( &twf, twf, float_to_set, 0,duration, EASE_curve );
+    }
+    
+    
+    void set(float float_to_start_from, float float_to_set, int duration, int EASE_curve) {
+        twf = float_to_start_from;
+        Tweenzor::add( &twf, float_to_start_from, float_to_set, 0,duration, EASE_curve );
     }
     
     

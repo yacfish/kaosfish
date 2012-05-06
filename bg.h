@@ -36,16 +36,16 @@ public:
 	//----------------------------------------------------------------	
 	void init(float level) {
 		dh_offset = ofRandom(0.0f, 200.0f);
-        fps_offset = ofRandom(-150.0f, -50.0f);
-        level_offset = ofRandom(-150.0f, -50.0f);
-        en_cnt_offset = ofRandom(-150.0f, -50.0f);
-        closest_enemy_offset = ofRandom(-150.0f, -50.0f);
+        fps_offset = ofRandom(0.0f, 200.0f);
+        level_offset = ofRandom(0.0f, 200.0f);
+        en_cnt_offset = ofRandom(0.0f, 200.0f);
+        closest_enemy_offset = ofRandom(0.0f, 200.0f);
       	col.set( 50.0f, 50.0f, 50.0f, 120.0f );
-        dh_vel = ofRandom(1.0f, 7.0f);
-        fps_vel = ofRandom(1.0f, 7.0f);
-        level_vel = ofRandom(1.0f, 7.0f);
-        en_cnt_vel = ofRandom(1.0f, 7.0f);
-        closest_enemy_vel = ofRandom(1.0f, 7.0f);
+        dh_vel = ofRandom(1.0f, 3.0f);
+        fps_vel = ofRandom(1.0f, 3.0f);
+        level_vel = ofRandom(1.0f, 3.0f);
+        en_cnt_vel = ofRandom(1.0f, 3.0f);
+        closest_enemy_vel = ofRandom(1.0f, 3.0f);
         
       	col.set( 50.0f, 50.0f, 50.0f, 120.0f );
         
@@ -88,10 +88,10 @@ public:
 	
 	//----------------------------------------------------------------
     
-    void draw(float fps,int level, float enemy_count, float closest_enemy, float elapsed) {
+    void draw(float fps,int level, float enemy_count, float closest_enemy, float elapsed, float velfact) {
         
         ofSetColor(col);		
-        ofCircle(pos.x, pos.y, radius);
+        ofCircle(pos.x, pos.y, radius.twf);
         
         if (elapsed > 300){
             elapsed = 300;
@@ -102,20 +102,23 @@ public:
         int minute= elapsed/ 60;
         float secondf= (int)((elapsed/ 60- minute)*60);
         int second= (int)secondf;
+        stringstream mm;
+        mm << setw(2) << setfill('0') << (int)minute;
+        string formatted_minutes = mm.str();
         stringstream ss;
-        ss << setw(2) << setfill('0') << (int)minute;
-        string formattedminutes = ss.str();
+        ss << setw(2) << setfill('0') << (int)second;
+        string formatted_seconds = ss.str();
         
         for (int i=0; i < 6; i++ ) {
             for (int j=0; j < 5; j++ ) {
                 ofSetColor(100,100,100,100);
-                ofDrawBitmapString("death hold", (int)dh_offset+(i * 200), 20+(j * 330));
+                ofDrawBitmapString("death hold   :  "+ofToString(velfact), (int)dh_offset+(i * 200), 20+(j * 330));
                 ofDrawBitmapString("fps:" + ofToString(fps, 2), (int)(fps_offset+(i * 200)), 75+(j * 330));
                 ofDrawBitmapString("level:" + ofToString(level) , (int)level_offset+(i * 200), 130+(j * 330));
                 ofDrawBitmapString("enemy_count:" + ofToString(enemy_count) , en_cnt_offset+(i * 200), 185+(j * 330));
                 ofDrawBitmapString("closest_enemy_dist:" + ofToString((int)pow((float)closest_enemy,(float)0.5)) , (int)(closest_enemy_offset+(i * 200)), 240+(j * 330));
-                ofDrawBitmapString(formattedminutes + ":" + ofToString(second), (int)20+(i * 200), 295+(j * 330));
-                ofDrawBitmapString(formattedminutes + ":" + ofToString(second), (int)120+(i * 200), 295+(j * 330));
+                ofDrawBitmapString(formatted_minutes + ":" + formatted_seconds, (int)20+(i * 200), 295+(j * 330));
+                ofDrawBitmapString(formatted_minutes + ":" + formatted_seconds, (int)120+(i * 200), 295+(j * 330));
             }
         }
     }
