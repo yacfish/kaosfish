@@ -26,24 +26,48 @@ public:
         Tweenzor::add( &twf, float_to_set, float_to_set, 0,1, EASE_LINEAR );
     }
     
-    void set(float float_to_set, int duration) {
-        Tweenzor::add( &twf, twf, float_to_set, 0, duration, EASE_LINEAR );
+    void set(float float_to_set, float duration) {
+        Tweenzor::add( &twf, twf, float_to_set, 0, (int)(duration*ofGetFrameRate()), EASE_LINEAR );
     }
     
-    void set(float float_to_start_from, float float_to_set, int duration) {
+    void set(float float_to_start_from, float float_to_set, float duration) {
         twf = float_to_start_from;
-        Tweenzor::add( &twf, float_to_start_from, float_to_set, 0, duration, EASE_LINEAR );
+        Tweenzor::add( &twf, float_to_start_from, float_to_set, 0, (int)(duration*ofGetFrameRate()), EASE_LINEAR );
     }
     
-    void set( float float_to_set, int duration, int EASE_curve) {
-        Tweenzor::add( &twf, twf, float_to_set, 0,duration, EASE_curve );
+    void setcurve( float float_to_set, float duration, int EASE_curve) {
+        Tweenzor::add( &twf, twf, float_to_set, 0,(int)(duration*ofGetFrameRate()), EASE_curve );
     }
     
     
-    void set(float float_to_start_from, float float_to_set, int duration, int EASE_curve) {
+    void setcurve(float float_to_start_from, float float_to_set, float duration, int EASE_curve) {
         twf = float_to_start_from;
-        Tweenzor::add( &twf, float_to_start_from, float_to_set, 0,duration, EASE_curve );
+        Tweenzor::add( &twf, float_to_start_from, float_to_set, 0,(int)(duration*ofGetFrameRate()), EASE_curve );
     }
+    void delayedset(float float_to_set, float delay_time) {
+        twf = float_to_set;
+        Tweenzor::add( &twf, float_to_set, float_to_set, (int)(delay_time*ofGetFrameRate()), 1, EASE_LINEAR );
+    }
+    
+    void delayedset(float float_to_set, float delay_time, float duration) {
+        Tweenzor::add( &twf, twf, float_to_set, (int)(delay_time*ofGetFrameRate()), (int)(duration*ofGetFrameRate()), EASE_LINEAR );
+    }
+    
+    void delayedset(float float_to_start_from, float float_to_set, float delay_time, float duration) {
+        twf = float_to_start_from;
+        Tweenzor::add( &twf, float_to_start_from, float_to_set, (int)(delay_time*ofGetFrameRate()), (int)(duration*ofGetFrameRate()), EASE_LINEAR );
+    }
+    
+    void delayedsetcurve( float float_to_set, float delay_time, float duration, int EASE_curve) {
+        Tweenzor::add( &twf, twf, float_to_set, (int)(delay_time*ofGetFrameRate()),(int)(duration*ofGetFrameRate()), EASE_curve );
+    }
+    
+    
+    void delayedsetcurve(float float_to_start_from, float float_to_set, float delay_time, float duration, int EASE_curve) {
+        twf = float_to_start_from;
+        Tweenzor::add( &twf, float_to_start_from, float_to_set, (int)(delay_time*ofGetFrameRate()),(int)(duration*ofGetFrameRate()), EASE_curve );
+    }
+
     
     
 

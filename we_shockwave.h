@@ -26,7 +26,7 @@ public:
         alive = false;        
     }
     
-    void expansion(float x, float y,float charge, float fps) {
+    void expansion(float x, float y,float charge) {
         
         alive = true;
         pos.x = x;
@@ -34,7 +34,7 @@ public:
         charge_factor = charge;
         alpha.set(120);
         if (charge_factor > 0){
-            radius.set(RING_RADIUS, RING_RADIUS*charge_factor, (int)(0.3 * fps));
+            radius.set(RING_RADIUS, RING_RADIUS*charge_factor, 0.3);
             Tweenzor::getTween( &radius.twf )->addListener( Tween::COMPLETE, this, &we_shockwave::die );
           
         }
@@ -50,13 +50,19 @@ public:
         ofCircle(pos.x, pos.y, radius.twf);
 	}
     
-    void die(float fps) {
+    void die(float f) {
         
         alive = false;
-        alpha.set( 0, 0.1 * fps);
+        alpha.set( 0, 0.1);
         
     }
-    
+  
+    void die() {
         
+        alive = false;
+        alpha.set( 0, 0.1);
+        
+    }
+
     
 };

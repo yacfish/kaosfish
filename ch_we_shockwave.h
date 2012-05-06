@@ -26,16 +26,16 @@ public:
         alive = false;        
     }
     
-    void expansion(float x, float y,float charge, float fps) {
+    void expansion(float x, float y,float charge) {
         
         alive = true;
         pos.x = x;
         pos.y = y;
         charge_factor = charge;
-        Tweenzor::add( &charge_factor, charge, 0, 0,(int)(0.1 * fps), EASE_IN_OUT_SINE);
+        Tweenzor::add( &charge_factor, charge, 0, 0,0.1, EASE_IN_OUT_SINE);
         alpha.set(120, 0);
         if (charge_factor > 0){
-            radius.set(TOUCH_RING_RADIUS, TOUCH_RING_RADIUS * charge_factor,(int)(0.3 * fps));
+            radius.set(TOUCH_RING_RADIUS, TOUCH_RING_RADIUS * charge_factor,0.3);
             Tweenzor::getTween( &radius.twf )->addListener( Tween::COMPLETE, this, &ch_we_shockwave::die );
         }
     }

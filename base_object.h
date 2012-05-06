@@ -6,22 +6,18 @@
 #define EN_BALL_SPEED           ofGetWidth()/70 //10
 
 
-//#include "ofxTweenzor.h"
 #include "tw_float.h"
 
 class base_object
 {
 public:
     ofPoint pos;
-    ofPoint vel;
+    
     ofColor col;
     tw_float velfactor;
     tw_float radius;
     bool alive;
     
-    
-    void init(int id) {
-    }
     
     void update() {
         

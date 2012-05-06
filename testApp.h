@@ -10,9 +10,8 @@
 #include "ofxiPhone.h"
 #include "ofxiPhoneExtras.h"
 #include "ofxTweenzor.h"
-
-
-#include "board.h"
+#include "game_board.h"
+#include "me_panel.h"
 
 //modiffffff
 
@@ -37,9 +36,10 @@ public:
 	void deviceOrientationChanged(int newOrientation);
 	void gotMessage(ofMessage msg);
 	
-    board big_board;
-	ofImage arrow;
+    game_board big_board;
     float fps;
     ofStyle fill;
-    
+    me_panel message_dh;
+    me_panel message_lvl;
+    int touch_dest;
 };

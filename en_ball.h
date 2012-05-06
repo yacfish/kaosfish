@@ -84,10 +84,10 @@ public:
 	//----------------------------------------------------------------	
     
     
-    void die(float fps){
+    void die(){
         
         alive = false;
-        alpha.set( 0,(int)(0.1 * fps));
+        alpha.set( 0,0.1);
         
     }
     

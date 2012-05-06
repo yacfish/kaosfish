@@ -88,7 +88,7 @@ public:
 	
 	//----------------------------------------------------------------
     
-    void draw(float fps,int level, float enemy_count, float closest_enemy, float elapsed, float velfact) {
+    void draw(int level, float enemy_count, float closest_enemy, float elapsed, float velfact,float en_rad, float ri_rad, int life_count) {
         
         ofSetColor(col);		
         ofCircle(pos.x, pos.y, radius.twf);
@@ -109,16 +109,33 @@ public:
         ss << setw(2) << setfill('0') << (int)second;
         string formatted_seconds = ss.str();
         
+       float closest_enemy_dist = pow((float)closest_enemy,(float)0.5)-(en_rad+ri_rad);
+        
         for (int i=0; i < 6; i++ ) {
-            for (int j=0; j < 5; j++ ) {
-                ofSetColor(100,100,100,100);
-                ofDrawBitmapString("death hold   :  "+ofToString(velfact), (int)dh_offset+(i * 200), 20+(j * 330));
-                ofDrawBitmapString("fps:" + ofToString(fps, 2), (int)(fps_offset+(i * 200)), 75+(j * 330));
-                ofDrawBitmapString("level:" + ofToString(level) , (int)level_offset+(i * 200), 130+(j * 330));
-                ofDrawBitmapString("enemy_count:" + ofToString(enemy_count) , en_cnt_offset+(i * 200), 185+(j * 330));
-                ofDrawBitmapString("closest_enemy_dist:" + ofToString((int)pow((float)closest_enemy,(float)0.5)) , (int)(closest_enemy_offset+(i * 200)), 240+(j * 330));
-                ofDrawBitmapString(formatted_minutes + ":" + formatted_seconds, (int)20+(i * 200), 295+(j * 330));
-                ofDrawBitmapString(formatted_minutes + ":" + formatted_seconds, (int)120+(i * 200), 295+(j * 330));
+            for (int j=0; j < 3; j++ ) {
+                
+                ofSetColor(100,100,100,255);
+                ofDrawBitmapString("death hold", (int)dh_offset+(i * 200), 20+(j * 385));
+                ofDrawBitmapString("fps:" + ofToString(ofGetFrameRate(), 2), (int)(fps_offset+(i * 200)), 75+(j * 385));
+                ofDrawBitmapString("level:" + ofToString(level) , (int)level_offset+(i * 200), 130+(j * 385));
+                ofDrawBitmapString("enemy_count:" + ofToString(enemy_count) , en_cnt_offset+(i * 200), 185+(j * 385));
+            
+                float red= 100;
+                if (closest_enemy_dist < 200) {
+                    red = (((200 - closest_enemy_dist)/100) * 155 ) + 100;
+                }
+                
+                ofSetColor(red,100,100,255);
+                
+                ofDrawBitmapString("closest_enemy_dist:" + ofToString((int)closest_enemy_dist) , (int)(closest_enemy_offset+(i * 200)), 240+(j * 385));
+               
+                ofSetColor(100,100,100,255);
+                
+                ofDrawBitmapString("life_count: " + ofToString(life_count), (int)20+(i * 200), 295+(j * 385));
+
+                
+                ofDrawBitmapString(formatted_minutes + ":" + formatted_seconds, (int)20+(i * 200), 350+(j * 385));
+                ofDrawBitmapString(formatted_minutes + ":" + formatted_seconds, (int)120+(i * 200), 350+(j * 385));
             }
         }
     }

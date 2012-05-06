@@ -15,6 +15,7 @@ class base_enemy : public base_object
 {
 public:
     
+    ofPoint vel;
     float ring_dist;
     
     float distance_from(float x, float y){
@@ -25,7 +26,7 @@ public:
         
     //----------------------------------------------------------------	
 	bool check_ring_collision(float x, float y,float rad) {
-        if ( pow((pos.x-x),2)+pow((pos.y-y),2) <= pow((float)(rad+EN_BALL_RADIUS),2) ){
+        if ( pow((pos.x-x),2)+pow((pos.y-y),2) <= pow((float)(rad*0.8+EN_BALL_RADIUS),2) ){
             return true;
         }
         return false;

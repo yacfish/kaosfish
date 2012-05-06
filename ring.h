@@ -23,7 +23,7 @@ public:
         
         chargecounter.set(0);
         
-        current_life_count = 5;
+        
         
          
 	}
