@@ -209,8 +209,8 @@ public:
             one_ring.chargecounter.set(0.0f);
             
             one_ring_shockwave.expansion(one_ring.pos.x, one_ring.pos.y, one_ring.chargecounter.twf, fps);
-            
-        }
+            one_ring.touchup(fps);
+      }
         
     } 
     

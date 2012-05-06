@@ -9,6 +9,8 @@ public:
 	ofColor touchCol;
 	bool dragged;
 	tw_float chargecounter;
+    tw_float destruct_timer;
+    float auto_destruct_time;
 
 	//----------------------------------------------------------------	
 	void init() {
@@ -22,11 +24,15 @@ public:
 		dragged = false;
         
         chargecounter.set(0);
+        destruct_timer.set(0);
+        auto_destruct_time = 2;
          
 	}
 	
 	//----------------------------------------------------------------	
     void update() {
+        //if ring is !dragged then destructtimer = destructtimer -1
+        
      
 	}
 	
@@ -38,6 +44,7 @@ public:
 		}else{
 			ofSetColor(col);		
 			ofCircle(pos.x, pos.y, RING_RADIUS);
+            
 		}
 	}
 	
@@ -47,4 +54,10 @@ public:
 		vel.set(0, 0, 0);
         
 	}
+    void touchup(float fps){
+        
+        destruct_timer.set(0, (int)auto_destruct_time*fps, (int)auto_destruct_time*fps);
+    
+    
+    }
 };
