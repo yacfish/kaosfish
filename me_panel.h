@@ -65,13 +65,11 @@ public:
         text_alpha.delayedset(255.0f, delay);
         alpha.delayedset(200.0f, delay, 0.5);
         
-        
         rect_size.set(sizex, sizey);
-        text_size.set(0, 1, 0.5);
-        text_show.loadFont("Arial.ttf", ofGetWidth()/10);
+        text_size.delayedset(0, 1, delay, 0.5);
         if (auto_kill) {
             
-            del_val.set(0, 1, auto_kill_delay);
+            del_val.delayedset(0, 1, delay, auto_kill_delay);
             Tweenzor::getTween( &del_val.twf )->addListener( Tween::COMPLETE, this, &me_panel::kill_del );
 
             

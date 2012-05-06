@@ -30,7 +30,7 @@ public:
     float closest_enemy;
     tw_float elapsed;
     bool started;
-    
+    bool show_level;
     
     //-----------------------------
     
@@ -124,6 +124,7 @@ public:
             one_ring_shockwave.die();
             reinit();
             one_ring.dragged = false;
+            show_level = true;
         }
         closest_enemy = 1000000;
         for(int i=0; i < enemy_list.size(); i++){

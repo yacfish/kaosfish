@@ -35,7 +35,13 @@ void testApp::update() {
     //fps = ( fps * 0.95 ) + ( ofGetFrameRate() * 0.05 );
     
     fps = ofGetFrameRate();
-    big_board.update();  
+    big_board.update();
+    if (big_board.show_level) {
+        
+        big_board.show_level = false;
+        message_lvl.show("LEVEL "+ofToString(big_board.level), ofGetWidth()/2, ofGetHeight()/2,ofGetWidth()*0.95, ofGetHeight()/10);
+
+    }
  
 	
 }
@@ -66,7 +72,7 @@ void testApp::touchDown(int x, int y, int id){
                 touch_dest = 2;
                 message_dh.kill();
                 message_lvl.auto_kill = true;
-                message_lvl.show("LEVEL "+ofToString(big_board.level), ofGetWidth()/2, ofGetHeight()/2,ofGetWidth()*0.95, ofGetHeight()/10, 2);
+                message_lvl.show("LEVEL "+ofToString(big_board.level), ofGetWidth()/2, ofGetHeight()/2,ofGetWidth()*0.95, ofGetHeight()/10, 0.5);
                 break;
             case 2:
                 big_board.touchdown1(x,y);
