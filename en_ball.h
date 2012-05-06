@@ -7,6 +7,7 @@ class en_ball : public base_enemy {
 public:
     
     tw_float alpha;
+    float enemyrotation;
 
 		
 	//----------------------------------------------------------------	
@@ -32,6 +33,7 @@ public:
         //alpha = 255;
         
         alpha.set(255);
+        enemyrotation = 0;
 		
 	}
 	
@@ -60,6 +62,7 @@ public:
 			pos.y = ofGetHeight() - EN_BALL_RADIUS;
 			vel.y *= -1; 
 		}
+        enemyrotation= ((int)enemyrotation+10)%360;
 	}
     
 	
