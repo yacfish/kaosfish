@@ -7,6 +7,7 @@ class en_ball : public base_enemy {
 public:
     
     tw_float alpha;
+    float enemyrotation;
 
 		
 	//----------------------------------------------------------------	
@@ -24,13 +25,14 @@ public:
 		radius.set(EN_BALL_RADIUS);
         alive = true;
 		col.set( 255.0f, 255.0f, 255.0f, 255.0f );
-        sprite_enemy.loadImage("images/enemy1_64.png");
+        sprite_enemy.loadImage("images/enemy1_50.png");
         
 		velfactor.set(0);
         
         //alpha = 255;
         
         alpha.set(255);
+        enemyrotation = 0;
 		
 	}
 	
@@ -59,6 +61,7 @@ public:
 			pos.y = ofGetHeight() - EN_BALL_RADIUS;
 			vel.y *= -1; 
 		}
+        enemyrotation= ((int)enemyrotation+10)%360;
 	}
     
 	
@@ -67,7 +70,12 @@ public:
     void draw() {
         col.a = (int)alpha.twf;
         ofSetColor(col);		
+        
+        ofPushMatrix ();
+        ofTranslate (-25.0, -25.0);// Center of the picture
+        ofRotate (enemyrotation);// Rotation// Drawing with a shift:
         sprite_enemy.draw(pos.x, pos.y);
+        ofPopMatrix ();
 	}
 
 	
