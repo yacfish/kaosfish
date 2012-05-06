@@ -35,12 +35,20 @@ public:
     
 	//----------------------------------------------------------------	
 	void init(float level) {
-		dh_offset = ofRandom(0.0f, 200.0f);
-        fps_offset = ofRandom(0.0f, 200.0f);
-        level_offset = ofRandom(0.0f, 200.0f);
-        en_cnt_offset = ofRandom(0.0f, 200.0f);
-        closest_enemy_offset = ofRandom(0.0f, 200.0f);
+//		dh_offset = ofRandom(0.0f, 200.0f);
+//        fps_offset = ofRandom(0.0f, 200.0f);
+//        level_offset = ofRandom(0.0f, 200.0f);
+//        en_cnt_offset = ofRandom(0.0f, 200.0f);
+//        closest_enemy_offset = ofRandom(0.0f, 200.0f);
+
+        dh_offset = 20;
+        fps_offset = 20;
+        level_offset = 20;
+        en_cnt_offset = 20;
+        closest_enemy_offset = 20;
+
       	col.set( 50.0f, 50.0f, 50.0f, 120.0f );
+
 //        dh_vel = ofRandom(1.0f, 3.0f);
 //        fps_vel = ofRandom(1.0f, 3.0f);
 //        level_vel = ofRandom(1.0f, 3.0f);
@@ -70,21 +78,21 @@ public:
 
         
 //        rajouter modulo
-        if (dh_offset > 0) {
-            dh_offset = dh_offset - 400;
-        } 
-        if (fps_offset > 0) {
-            fps_offset = fps_offset - 400;
-        }
-        if (level_offset > 0) {
-        level_offset = level_offset - 400;
-        }
-        if (en_cnt_offset > 0) {
-        en_cnt_offset = en_cnt_offset - 400;
-        }
-        if (closest_enemy_offset > 0) {
-        closest_enemy_offset = closest_enemy_offset - 400;
-        }
+//        if (dh_offset > 0) {
+//            dh_offset = dh_offset - 400;
+//        } 
+//        if (fps_offset > 0) {
+//            fps_offset = fps_offset - 400;
+//        }
+//        if (level_offset > 0) {
+//        level_offset = level_offset - 400;
+//        }
+//        if (en_cnt_offset > 0) {
+//        en_cnt_offset = en_cnt_offset - 400;
+//        }
+//        if (closest_enemy_offset > 0) {
+//        closest_enemy_offset = closest_enemy_offset - 400;
+//        }
         
         
         
@@ -142,7 +150,7 @@ public:
 
                 
                 ofDrawBitmapString(formatted_minutes + ":" + formatted_seconds, (int)20+(i * 200), 350+(j * 385));
-                ofDrawBitmapString(formatted_minutes + ":" + formatted_seconds, (int)120+(i * 200), 350+(j * 385));
+//                ofDrawBitmapString(formatted_minutes + ":" + formatted_seconds, (int)120+(i * 200), 350+(j * 385));
             }
         }
     }
