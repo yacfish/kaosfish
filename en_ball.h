@@ -25,8 +25,7 @@ public:
 		radius.set(EN_BALL_RADIUS);
         alive = true;
 		col.set( 255.0f, 255.0f, 255.0f, 255.0f );
-        sprite_enemy.loadImage("images/enemy1_64.png");
-        sprite_enemy.resize(EN_BALL_RADIUS *2.1, EN_BALL_RADIUS *2.1);
+        sprite_enemy.loadImage("images/enemy1_50.png");
         
 		velfactor.set(0);
         
@@ -71,7 +70,12 @@ public:
     void draw() {
         col.a = (int)alpha.twf;
         ofSetColor(col);		
-        sprite_enemy.draw(pos.x-(sprite_enemy.getWidth()/2), pos.y-(sprite_enemy.getHeight() /2));
+        
+        ofPushMatrix ();
+        ofTranslate (-25.0, -25.0);// Center of the picture
+        ofRotate (enemyrotation);// Rotation// Drawing with a shift:
+        sprite_enemy.draw(pos.x, pos.y);
+        ofPopMatrix ();
 	}
 
 	
