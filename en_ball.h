@@ -23,7 +23,8 @@ public:
 		
 		radius.set(EN_BALL_RADIUS);
         alive = true;
-		col.set( 255.0f, 50.0f, 50.0f, 255.0f );
+		col.set( 255.0f, 255.0f, 255.0f, 255.0f );
+        sprite_enemy.loadImage("images/enemy1_64.png");
         
 		velfactor.set(0);
         
@@ -66,7 +67,7 @@ public:
     void draw() {
         col.a = (int)alpha.twf;
         ofSetColor(col);		
-        ofCircle(pos.x, pos.y, radius.twf);
+        sprite_enemy.draw(pos.x, pos.y);
 	}
 
 	

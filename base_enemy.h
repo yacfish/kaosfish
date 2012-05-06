@@ -17,6 +17,7 @@ public:
     
     ofPoint vel;
     float ring_dist;
+    ofImage sprite_enemy;
     
     float distance_from(float x, float y){
         ring_dist = pow((pos.x-x),2)+pow((pos.y-y),2);
