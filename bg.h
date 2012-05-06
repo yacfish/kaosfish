@@ -41,12 +41,19 @@ public:
         en_cnt_offset = ofRandom(0.0f, 200.0f);
         closest_enemy_offset = ofRandom(0.0f, 200.0f);
       	col.set( 50.0f, 50.0f, 50.0f, 120.0f );
-        dh_vel = ofRandom(1.0f, 3.0f);
-        fps_vel = ofRandom(1.0f, 3.0f);
-        level_vel = ofRandom(1.0f, 3.0f);
-        en_cnt_vel = ofRandom(1.0f, 3.0f);
-        closest_enemy_vel = ofRandom(1.0f, 3.0f);
+//        dh_vel = ofRandom(1.0f, 3.0f);
+//        fps_vel = ofRandom(1.0f, 3.0f);
+//        level_vel = ofRandom(1.0f, 3.0f);
+//        en_cnt_vel = ofRandom(1.0f, 3.0f);
+//        closest_enemy_vel = ofRandom(1.0f, 3.0f);
+//        
+        dh_vel = 0;
+        fps_vel =0;
+        level_vel =0;
+        en_cnt_vel =0;
+        closest_enemy_vel =0;
         
+
       	col.set( 50.0f, 50.0f, 50.0f, 120.0f );
         
 	}
@@ -111,8 +118,8 @@ public:
         
        float closest_enemy_dist = pow((float)closest_enemy,(float)0.5)-(en_rad+ri_rad);
         
-        for (int i=0; i < 6; i++ ) {
-            for (int j=0; j < 3; j++ ) {
+        for (int i=1; i < 2; i++ ) {
+            for (int j=1; j < 2; j++ ) {
                 
                 ofSetColor(100,100,100,255);
                 ofDrawBitmapString("death hold", (int)dh_offset+(i * 200), 20+(j * 385));
