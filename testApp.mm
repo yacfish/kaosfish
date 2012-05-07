@@ -13,16 +13,27 @@ void testApp::setup(){
     
     fps = 0;
     
+    message_dh.init();
+    message_lvl.init();
+    message_lives.init();
+    message_gameover.init();
+    
+    start(0);
+    
+
+    
+}
+
+void testApp::start(float del){
+    
     big_board.init();
     
     
     
     fill.bFill = false;
-    message_dh.init();
-    message_lvl.init();
-    message_dh.show("DEATH HOLD", ofGetWidth()/2, ofGetHeight()/2,ofGetWidth()*0.95, ofGetHeight()/10);
+    
+    message_dh.show("DEATH HOLD", ofGetWidth()/2, ofGetHeight()/2,ofGetWidth(), ofGetHeight(), del);
     touch_dest = 1;
-       
 }
 
 
@@ -39,8 +50,24 @@ void testApp::update() {
     if (big_board.show_level) {
         
         big_board.show_level = false;
-        message_lvl.show("LEVEL "+ofToString(big_board.level), ofGetWidth()/2, ofGetHeight()/2,ofGetWidth()*0.95, ofGetHeight()/10);
+        message_lvl.show("LEVEL "+ofToString(big_board.level), ofGetWidth()/2, ofGetHeight()/2,ofGetWidth(), ofGetHeight()/8,1);
 
+    }
+    if (big_board.show_lives) {
+        
+        big_board.show_lives = false;
+        message_lives.auto_kill = true;
+        message_lives.show("LIFE COUNT "+ofToString(big_board.one_ring.current_life_count), ofGetWidth()/2, ofGetHeight()/2,ofGetWidth(), ofGetHeight()/8,.5);
+        
+    }
+    if (big_board.show_gameover) {
+        
+        big_board.show_gameover = false;
+        message_gameover.auto_kill = true;
+        message_gameover.auto_kill_delay = 3;
+        message_gameover.show("GAME OVER", ofGetWidth()/2, ofGetHeight()/2,ofGetWidth(), ofGetHeight()/8,.5);
+        touch_dest = 1;
+        start(3.5);
     }
  
 	
@@ -54,6 +81,9 @@ void testApp::draw() {
     big_board.draw(fill);
     message_dh.draw();
     message_lvl.draw();
+    message_lives.draw();
+    message_gameover.draw();
+    
     ofDisableAlphaBlending();
     
 }
@@ -72,7 +102,12 @@ void testApp::touchDown(int x, int y, int id){
                 touch_dest = 2;
                 message_dh.kill();
                 message_lvl.auto_kill = true;
-                message_lvl.show("LEVEL "+ofToString(big_board.level), ofGetWidth()/2, ofGetHeight()/2,ofGetWidth()*0.95, ofGetHeight()/10, 0.5);
+                message_lvl.show("LEVEL "+ofToString(big_board.level), ofGetWidth()/2, ofGetHeight()/2,ofGetWidth(), ofGetHeight()/8, 0.5);
+                for(int i=0; i<big_board.enemy_list.size(); i++){
+                    
+                    big_board.enemy_list[i].reinit(1);
+                    
+                }
                 break;
             case 2:
                 big_board.touchdown1(x,y);

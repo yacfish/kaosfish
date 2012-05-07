@@ -15,7 +15,7 @@ class we_shockwave : public base_weapon
 public:
     
     tw_float alpha;
-    float charge_factor;
+    
 
     we_shockwave() {
         
@@ -31,10 +31,11 @@ public:
         alive = true;
         pos.x = x;
         pos.y = y;
-        charge_factor = charge;
+        
         alpha.set(120);
-        if (charge_factor > 0){
-            radius.set(RING_RADIUS, RING_RADIUS*charge_factor, 0.3);
+        
+        if (charge > 0){
+            radius.set(RING_RADIUS, charge, 0.3);
             Tweenzor::getTween( &radius.twf )->addListener( Tween::COMPLETE, this, &we_shockwave::die );
           
         }

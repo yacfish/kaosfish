@@ -36,10 +36,13 @@ public:
 	void deviceOrientationChanged(int newOrientation);
 	void gotMessage(ofMessage msg);
 	
+    void start(float);
     game_board big_board;
     float fps;
     ofStyle fill;
     me_panel message_dh;
     me_panel message_lvl;
+    me_panel message_lives;
+    me_panel message_gameover;
     int touch_dest;
 };

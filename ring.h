@@ -8,7 +8,7 @@ class ring : public base_object {
 public:
 	ofColor touchCol;
 	bool dragged;
-	tw_float chargecounter;
+	
     int current_life_count;
     tw_float destruct_timer;
     float auto_destruct_time;
@@ -24,9 +24,9 @@ public:
         
 		dragged = false;
         
-        chargecounter.set(0);
-        destruct_timer.set(0);
         
+        alive = false;
+        dragged = false;
         
         auto_destruct_time = 2;
          
@@ -50,9 +50,10 @@ public:
     void moveTo(int x, int y) {
         pos.set(x,y,0);
     }
-    void touchup(float fps){
+    void touchup(){
         
-        destruct_timer.set(0, (int)auto_destruct_time*fps, (int)auto_destruct_time*fps);
+        dragged = false;
+        destruct_timer.set(0, (int)auto_destruct_time*ofGetFrameRate(), (int)auto_destruct_time*ofGetFrameRate());
         
         
     }
