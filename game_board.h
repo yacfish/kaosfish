@@ -31,11 +31,15 @@ public:
     tw_float elapsed;
     bool started;
     bool show_level;
+    bool show_lives;
+    bool show_gameover;
     
     //-----------------------------
     
     void init() {
         
+        show_level= false;
+        show_lives= false;
         started = false;
         elapsed.set(0);
         the_bg.init(level);
@@ -43,7 +47,7 @@ public:
         one_ring.current_life_count = 5;
         one_ring.init();
         level = 1;
-        enemy_list.assign(20, en_ball());
+        enemy_list.assign(10, en_ball());
         
         for(int i=0; i<enemy_list.size(); i++){
             
@@ -56,15 +60,15 @@ public:
     
     //-----------------------------
     
-    void reinit() {
+    void reinit(float fake) {
         
-        master_velfactor.set(0);
+        
         
         the_bg.init(level);
         one_ring.init();
         
         for(int i=0; i<enemy_list.size(); i++){
-            enemy_list[i].init(level);
+            enemy_list[i].reinit(level);
         }
         
         
@@ -83,19 +87,37 @@ public:
         bool break_bool = false;
         for(int i=0; i < enemy_list.size(); i++){
             
-            if (break_bool == false) {
                 
                 enemy_list[i].velfactor.set(master_velfactor.twf);
                 enemy_list[i].update(one_ring.pos.x,one_ring.pos.y);
                 
-                if (enemy_list[i].alive == true) {
+            if (break_bool == false) {
+                
+                if (enemy_list[i].alive && one_ring.alive) {
                     
-                    if (enemy_list[i].check_ring_collision(one_ring.pos.x, one_ring.pos.y, one_ring.radius.twf) == true) {
+                    if (enemy_list[i].check_ring_collision(one_ring.pos.x, one_ring.pos.y, one_ring.radius.twf)) {
                         
-                        //reinit();
+                        
                         break_bool = true;
                         one_ring.current_life_count--;
                         one_ring_ch_shockwave.diefast();
+                        master_velfactor.set(0, 1.);
+                        Tweenzor::getTween( &master_velfactor.twf )->addListener( Tween::COMPLETE, this, &game_board::reinit );
+                        
+                        for(int i=0; i < enemy_list.size(); i++){
+                             enemy_list[i].alpha.set(0, 0.7);
+                         }
+                        one_ring.alive = false;
+                        
+                        if (one_ring.current_life_count>0) {
+                            show_lives = true;
+                        }else{
+                            show_gameover = true;
+                        }
+                        
+                        
+                        
+                        
                         
                     }
                 }
@@ -116,13 +138,14 @@ public:
         enemy_count= 0;
         for(int i=0; i < enemy_list.size(); i++){
             if (enemy_list[i].alive) {
+               
                 enemy_count++;
             }
         }
         if (enemy_count == 0){
             level++;
             one_ring_shockwave.die();
-            reinit();
+            reinit(0);
             one_ring.dragged = false;
             show_level = true;
         }
@@ -203,7 +226,7 @@ public:
     
     void touchup1(int x, int y) {
         
-        if (one_ring.dragged == true) {
+        if (one_ring.dragged && one_ring.alive) {
             
             master_velfactor.setcurve( 0.2f , 0.3f , EASE_IN_OUT_SINE );
             

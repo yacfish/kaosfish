@@ -9,6 +9,7 @@ public:
     tw_float alpha;
     float enemyrotation;
 
+
 		
 	//----------------------------------------------------------------	
 	void init(float level) {
@@ -31,10 +32,36 @@ public:
         
         //alpha = 255;
         
-        alpha.set(255);
+        alpha.set(0);
         enemyrotation = 0;
 		
 	}
+    
+    void reinit(float level) {
+        
+        if (ofRandom(0, 2) > 1) {
+            pos.set(((int)(ofRandom(1)+0.5)*ofGetWidth())*0.9+ofGetWidth()*0.05, ofRandomHeight()*0.9+ofGetHeight()*0.05, 0);
+        }else{
+            pos.set(ofRandomWidth()*0.9+ofGetWidth()*0.05,((int)(ofRandom(1)+0.5))*ofGetHeight()*0.9+ofGetHeight()*0.05, 0);
+        }
+        
+        float theta = ofRandom(0, 360);
+        vel.set(EN_BALL_SPEED * ((level-1)*0.05+1) * cos(theta), EN_BALL_SPEED * ((level-1)*0.05+1) * sin(theta), 0);
+		
+		radius.set(EN_BALL_RADIUS);
+        alive = true;
+		
+        
+		velfactor.set(0);
+        
+        //alpha = 255;
+        
+        alpha.set(255, 0.7);
+        
+
+    }
+        
+    
 	
 	//----------------------------------------------------------------	
     void update(float x, float y) {
@@ -63,10 +90,12 @@ public:
 		}
         
         float dist_factor = 1 - ((clip(sqrt(distance_from(x, y)),0, 400)/ 400)*0.6);
+        
         //float dist_factor = distance_from(x, y);
         
         //cout << "dist_factor : " << dist_factor << endl;
-        enemyrotation= (int)((enemyrotation+10*dist_factor)*60/ofGetFrameRate())%360;
+        
+        enemyrotation= (int)((enemyrotation+(10*dist_factor*velfactor.twf*60/ofGetFrameRate())))%360;
         
 	}
     

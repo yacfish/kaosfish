@@ -41,5 +41,7 @@ public:
     ofStyle fill;
     me_panel message_dh;
     me_panel message_lvl;
+    me_panel message_lives;
+    me_panel message_gameover;
     int touch_dest;
 };
