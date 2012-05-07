@@ -36,6 +36,7 @@ public:
 	void deviceOrientationChanged(int newOrientation);
 	void gotMessage(ofMessage msg);
 	
+    void start(float);
     game_board big_board;
     float fps;
     ofStyle fill;

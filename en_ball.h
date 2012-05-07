@@ -25,14 +25,14 @@ public:
 		
 		radius.set(EN_BALL_RADIUS);
         alive = true;
-		col.set( 255.0f, 255.0f, 255.0f, 255.0f );
+		col.set( 255.0f, 255.0f, 255.0f, 0 );
         sprite_enemy.loadImage("images/enemy1_50.png");
         
 		velfactor.set(0);
         
         //alpha = 255;
         
-        alpha.set(0);
+        alpha.set(0, 1);
         enemyrotation = 0;
 		
 	}

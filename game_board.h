@@ -43,11 +43,11 @@ public:
         started = false;
         elapsed.set(0);
         the_bg.init(level);
-        master_velfactor.set(0);
+        master_velfactor.set(0, 1);
         one_ring.current_life_count = 5;
         one_ring.init();
         level = 1;
-        enemy_list.assign(10, en_ball());
+        enemy_list.assign(25, en_ball());
         
         for(int i=0; i<enemy_list.size(); i++){
             
@@ -145,7 +145,7 @@ public:
         if (enemy_count == 0){
             level++;
             one_ring_shockwave.die();
-            reinit(0);
+            reinit(level);
             one_ring.dragged = false;
             show_level = true;
         }

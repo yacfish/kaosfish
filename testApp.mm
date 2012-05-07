@@ -13,20 +13,27 @@ void testApp::setup(){
     
     fps = 0;
     
+    message_dh.init();
+    message_lvl.init();
+    message_lives.init();
+    message_gameover.init();
+    
+    start(0);
+    
+
+    
+}
+
+void testApp::start(float del){
     
     big_board.init();
     
     
     
     fill.bFill = false;
-    message_dh.init();
-    message_lvl.init();
-    message_lives.init();
-    message_gameover.init();
-    message_dh.show("DEATH HOLD", ofGetWidth()/2, ofGetHeight()/2,ofGetWidth(), ofGetHeight());
-    touch_dest = 1;
-
     
+    message_dh.show("DEATH HOLD", ofGetWidth()/2, ofGetHeight()/2,ofGetWidth(), ofGetHeight(), del);
+    touch_dest = 1;
 }
 
 
@@ -59,7 +66,8 @@ void testApp::update() {
         message_gameover.auto_kill = true;
         message_gameover.auto_kill_delay = 3;
         message_gameover.show("GAME OVER", ofGetWidth()/2, ofGetHeight()/2,ofGetWidth(), ofGetHeight()/8,.5);
-        
+        touch_dest = 1;
+        start(3.5);
     }
  
 	
