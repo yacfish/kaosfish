@@ -43,7 +43,7 @@ public:
         one_ring.current_life_count = 5;
         one_ring.init();
         level = 1;
-        enemy_list.assign(30, en_ball());
+        enemy_list.assign(20, en_ball());
         
         for(int i=0; i<enemy_list.size(); i++){
             
@@ -78,7 +78,7 @@ public:
         
         one_ring.update();
         
-        one_ring_ch_shockwave.radius.set(one_ring.chargecounter.twf);
+        one_ring_ch_shockwave.moveTo(one_ring.pos.x, one_ring.pos.y);
         
         bool break_bool = false;
         for(int i=0; i < enemy_list.size(); i++){
@@ -86,16 +86,16 @@ public:
             if (break_bool == false) {
                 
                 enemy_list[i].velfactor.set(master_velfactor.twf);
-                enemy_list[i].update();
+                enemy_list[i].update(one_ring.pos.x,one_ring.pos.y);
                 
                 if (enemy_list[i].alive == true) {
                     
                     if (enemy_list[i].check_ring_collision(one_ring.pos.x, one_ring.pos.y, one_ring.radius.twf) == true) {
                         
-                        reinit();
+                        //reinit();
                         break_bool = true;
-                        one_ring.alive = false;
                         one_ring.current_life_count--;
+                        one_ring_ch_shockwave.diefast();
                         
                     }
                 }
@@ -172,8 +172,9 @@ public:
             one_ring.alive = true;
             one_ring.moveTo(x, y);
             one_ring.dragged = true;
-            master_velfactor.setcurve( 1.0f , 1 , EASE_IN_OUT_SINE);
-            one_ring.chargecounter.set( 1.0f, 10.0f,2.0f);
+            master_velfactor.setcurve( 1, 1 , EASE_IN_OUT_SINE);
+            one_ring_ch_shockwave.expansion();
+            
             
         }
     }
@@ -204,11 +205,14 @@ public:
         
         if (one_ring.dragged == true) {
             
-            one_ring.dragged = false;
-            
             master_velfactor.setcurve( 0.2f , 0.3f , EASE_IN_OUT_SINE );
-            one_ring_shockwave.expansion(one_ring.pos.x, one_ring.pos.y, one_ring.chargecounter.twf);
-            one_ring.chargecounter.set(0.0f);
+            
+            one_ring_shockwave.expansion(one_ring.pos.x, one_ring.pos.y, one_ring_ch_shockwave.radius.twf);
+            
+            one_ring_ch_shockwave.die();
+            
+            one_ring.touchup();
+            
             
         }
         

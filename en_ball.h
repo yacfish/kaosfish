@@ -37,7 +37,7 @@ public:
 	}
 	
 	//----------------------------------------------------------------	
-    void update() {
+    void update(float x, float y) {
 
         // add vel to pos
         pos.x += vel.x * velfactor.twf * 60/ofGetFrameRate();
@@ -61,7 +61,13 @@ public:
 			pos.y = ofGetHeight() - EN_BALL_RADIUS;
 			vel.y *= -1; 
 		}
-        enemyrotation= (int)((enemyrotation+10)*60/ofGetFrameRate())%360;
+        
+        float dist_factor = 1 - ((clip(sqrt(distance_from(x, y)),0, 400)/ 400)*0.6);
+        //float dist_factor = distance_from(x, y);
+        
+        //cout << "dist_factor : " << dist_factor << endl;
+        enemyrotation= (int)((enemyrotation+10*dist_factor)*60/ofGetFrameRate())%360;
+        
 	}
     
 	

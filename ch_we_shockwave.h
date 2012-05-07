@@ -15,7 +15,7 @@ class ch_we_shockwave : public we_shockwave
 public:
     
     tw_float alpha;
-    float charge_factor;
+
 
     ch_we_shockwave() {
         
@@ -26,18 +26,13 @@ public:
         alive = false;        
     }
     
-    void expansion(float x, float y,float charge) {
+    void expansion() {
         
         alive = true;
-        pos.x = x;
-        pos.y = y;
-        charge_factor = charge;
-        Tweenzor::add( &charge_factor, charge, 0, 0,0.1, EASE_IN_OUT_SINE);
-        alpha.set(120, 0);
-        if (charge_factor > 0){
-            radius.set(TOUCH_RING_RADIUS, TOUCH_RING_RADIUS * charge_factor,0.3);
-            Tweenzor::getTween( &radius.twf )->addListener( Tween::COMPLETE, this, &ch_we_shockwave::die );
-        }
+        radius.twf = 0;
+        radius.delayedset(1,TOUCH_SHOCKWAVE_MAX_RADIUS,1,4);
+        alpha.set(255);
+        radius.set( 1.0f, RING_RADIUS*10.0f,4.0f);
     }
     
     void update() {
@@ -53,12 +48,26 @@ public:
         ofPopStyle();
 	}
     
-    void die(float fps) {
+    void die() {
         
         alive = false;
-        alpha.set(0,0.1 * fps);
+        alpha.delayedset(0,0.3,0.1);
+        radius.set(radius.twf);
         
     }
+    void diefast() {
+        
+        alive = false;
+        alpha.set(0);
+        radius.set(radius.twf);
+        
+    }
+    
+    void moveTo(int x, int y) {
+        pos.set(x,y,0);
+    }
+    
+    
     
         
     
