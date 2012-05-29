@@ -1,7 +1,6 @@
 #pragma once
 
 #include "base_enemy.h"
-#include "me_panel.h"
 
 class en_ball : public base_enemy {
 public:
@@ -24,12 +23,12 @@ public:
 		radius.set(EN_BALL_RADIUS);
         alive = true;
 		col.set( 255.0f, 255.0f, 255.0f, 255.0f );
-        sprite_enemy.loadImage("images/enemy1_64.png");
+        sprite_enemy.loadImage("images/enemy1_50.png");
         
 		velfactor.set(0);
         
         //alpha = 255;
-        
+        enemyrotation = 0;
         alpha.set(255);
 		
 	}
@@ -85,6 +84,9 @@ public:
 			pos.y = ofGetHeight() - EN_BALL_RADIUS;
 			vel.y *= -1; 
 		}
+        float dist_factor = 1 - ((clip(sqrt(distance_from(x, y)),0, 400)/ 400)*0.6);
+        enemyrotation= (int)((enemyrotation+(10*dist_factor*velfactor.twf*60/ofGetFrameRate())))%360;
+        
 	}
     
 	
@@ -93,12 +95,9 @@ public:
     void draw() {
         col.a = (int)alpha.twf;
         ofSetColor(col);		
-        
         ofPushMatrix ();
         ofTranslate (pos.x, pos.y);
-        // Center of the picture
-        ofRotate (enemyrotation);// Rotation// Drawing with a shift:
-        //        ofTranslate (0, 0);
+        ofRotate (enemyrotation);
         sprite_enemy.draw(-25,-25);
         ofPopMatrix ();
 	}
