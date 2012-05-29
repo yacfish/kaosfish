@@ -12,6 +12,7 @@
 #include "ofxTweenzor.h"
 #include "game_board.h"
 #include "me_panel.h"
+#include "me_time.h"
 
 //modiffffff
 
@@ -41,6 +42,7 @@ public:
     float fps;
     ofStyle fill;
     me_panel message_dh;
+    me_timer message_timeleft;
     me_panel message_lvl;
     me_panel message_lives;
     me_panel message_gameover;

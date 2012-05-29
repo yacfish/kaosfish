@@ -30,7 +30,7 @@ public:
     float level_pos;
     float en_cnt_pos;
     float closest_enemy_pos;
-
+    string time_left;
 
     
 	//----------------------------------------------------------------	
@@ -123,6 +123,7 @@ public:
         stringstream ss;
         ss << setw(2) << setfill('0') << (int)second;
         string formatted_seconds = ss.str();
+        time_left = formatted_minutes + ":" + formatted_seconds;
         
        float closest_enemy_dist = pow((float)closest_enemy,(float)0.5)-(en_rad+ri_rad);
         

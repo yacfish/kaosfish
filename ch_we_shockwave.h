@@ -30,7 +30,7 @@ public:
         
         alive = true;
         radius.twf = 0;
-        radius.delayedset(RING_RADIUS,TOUCH_SHOCKWAVE_MAX_RADIUS,1,4);
+        radius.delayedset(RING_RADIUS,TOUCH_SHOCKWAVE_MAX_RADIUS,1,3);
         alpha.set(255);
     }
     

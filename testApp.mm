@@ -14,13 +14,12 @@ void testApp::setup(){
     fps = 0;
     
     message_dh.init();
+    message_timeleft.init();
     message_lvl.init();
     message_lives.init();
     message_gameover.init();
     
     start(0);
-    
-
     
 }
 
@@ -48,15 +47,20 @@ void testApp::update() {
     fps = ofGetFrameRate();
     big_board.update();
     if (big_board.show_level) {
-        
+        if (big_board.level == 1) {
+            //message_timeleft.col.set(255,0,0, 0);
+            cout << big_board.the_bg.time_left << endl;
+        }
         big_board.show_level = false;
+        //message_lvl.col.set(255, 50, 50, 0);
         message_lvl.show("LEVEL "+ofToString(big_board.level), ofGetWidth()/2, ofGetHeight()/2,ofGetWidth(), ofGetHeight()/8,1);
-
+        
     }
     if (big_board.show_lives) {
         
         big_board.show_lives = false;
         message_lives.auto_kill = true;
+        //message_lives.col.set(50, 50, 255, 0);
         message_lives.show("LIFE COUNT "+ofToString(big_board.one_ring.current_life_count), ofGetWidth()/2, ofGetHeight()/2,ofGetWidth(), ofGetHeight()/8,.5);
         
     }
@@ -65,11 +69,12 @@ void testApp::update() {
         big_board.show_gameover = false;
         message_gameover.auto_kill = true;
         message_gameover.auto_kill_delay = 3;
+        //message_gameover.col.set(255, 50, 50, 0);
         message_gameover.show("GAME OVER", ofGetWidth()/2, ofGetHeight()/2,ofGetWidth(), ofGetHeight()/8,.5);
         touch_dest = 1;
         start(3.5);
     }
- 
+    message_timeleft.text = ofToString(big_board.the_bg.time_left);
 	
 }
 
@@ -77,7 +82,8 @@ void testApp::update() {
 void testApp::draw() {
 	
 	ofEnableAlphaBlending();
-	
+    
+    message_timeleft.draw();
     big_board.draw(fill);
     message_dh.draw();
     message_lvl.draw();
@@ -102,6 +108,8 @@ void testApp::touchDown(int x, int y, int id){
                 touch_dest = 2;
                 message_dh.kill();
                 message_lvl.auto_kill = true;
+                message_timeleft.show(big_board.the_bg.time_left, ofGetWidth()/2, ofGetHeight()/2,ofGetWidth(), ofGetHeight(), 0);
+                
                 message_lvl.show("LEVEL "+ofToString(big_board.level), ofGetWidth()/2, ofGetHeight()/2,ofGetWidth(), ofGetHeight()/8, 0.5);
                 for(int i=0; i<big_board.enemy_list.size(); i++){
                     

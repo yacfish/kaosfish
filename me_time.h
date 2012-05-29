@@ -6,10 +6,11 @@
 //  Copyright (c) 2012 imal. All rights reserved.
 //
 #pragma once
+
 #include "base_menu.h"
 
 
-class me_panel : public base_menu
+class me_timer : public base_menu
 {
 public:
     ofPoint rect_size;
@@ -25,15 +26,15 @@ public:
     float auto_kill_delay;
     
     
-    me_panel(){
+    me_timer(){
         
         auto_kill = false;
         auto_kill_delay = 1;
         
-       
+        
     }
     void init(){
-         text_show.loadFont("Arial.ttf", ofGetWidth()/10);
+        text_show.loadFont("Arial.ttf", ofGetWidth()/3);
     }
     
     void show(string txt, float posx, float posy, float sizex,float sizey){
@@ -49,7 +50,7 @@ public:
         if (auto_kill) {
             
             del_val.set(0, 1, auto_kill_delay);
-            Tweenzor::getTween( &del_val.twf )->addListener( Tween::COMPLETE, this, &me_panel::kill_del );
+            Tweenzor::getTween( &del_val.twf )->addListener( Tween::COMPLETE, this, &me_timer::kill_del );
             
             
         }
@@ -60,24 +61,24 @@ public:
         text= txt;
         pos.set(posx, posy);
         text_alpha.delayedset(255.0f, delay);
-        alpha.delayedset(200.0f, delay, 0.5);
+        alpha.delayedset(255.0f, delay, 0.5);
         
         rect_size.set(sizex, sizey);
         text_size.delayedset(0, 1, delay, 0.5);
         if (auto_kill) {
             
             del_val.delayedset(0, 1, delay, auto_kill_delay);
-            Tweenzor::getTween( &del_val.twf )->addListener( Tween::COMPLETE, this, &me_panel::kill_del );
-
+            Tweenzor::getTween( &del_val.twf )->addListener( Tween::COMPLETE, this, &me_timer::kill_del );
+            
             
         }
         
     }
-
+    
     
     void draw(){
         glPushMatrix();
-        col.set(255, 0, 0,(int)alpha.twf);
+        col.set(0, 0, 0,(int)alpha.twf);
         text_col.set(255,255,255,(int)text_alpha.twf);
         
         ofSetColor(col);
@@ -102,10 +103,7 @@ public:
         alpha.set(0, 0.2);
         text_size.set(2, 0.5);
         text_alpha.set(0, 0.5);
-        
-        
+
     }
 
 };
-
-

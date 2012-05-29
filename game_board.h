@@ -47,7 +47,7 @@ public:
         one_ring.current_life_count = 5;
         one_ring.init();
         level = 1;
-        enemy_list.assign(25, en_ball());
+        enemy_list.assign(15, en_ball());
         
         for(int i=0; i<enemy_list.size(); i++){
             

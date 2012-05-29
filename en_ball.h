@@ -1,16 +1,14 @@
 #pragma once
 
 #include "base_enemy.h"
-
+#include "me_panel.h"
 
 class en_ball : public base_enemy {
 public:
     
     tw_float alpha;
-    float enemyrotation;
-
-
-		
+    float enemyrotation;    
+    
 	//----------------------------------------------------------------	
 	void init(float level) {
 		
@@ -58,18 +56,18 @@ public:
         
         alpha.set(255, 0.7);
         
-
-    }
         
+    }
+    
     
 	
 	//----------------------------------------------------------------	
     void update(float x, float y) {
-
+        
         // add vel to pos
         pos.x += vel.x * velfactor.twf * 60/ofGetFrameRate();
         pos.y += vel.y * velfactor.twf * 60/ofGetFrameRate();
-
+        
         // check boundaries
         if(pos.x < EN_BALL_RADIUS) {
             pos.x = EN_BALL_RADIUS;
@@ -101,7 +99,7 @@ public:
     
 	
 	//----------------------------------------------------------------
-   
+    
     void draw() {
         col.a = (int)alpha.twf;
         ofSetColor(col);		
@@ -110,11 +108,11 @@ public:
         ofTranslate (pos.x, pos.y);
         // Center of the picture
         ofRotate (enemyrotation);// Rotation// Drawing with a shift:
-//        ofTranslate (0, 0);
+        //        ofTranslate (0, 0);
         sprite_enemy.draw(-25,-25);
         ofPopMatrix ();
 	}
-
+    
 	
 	//----------------------------------------------------------------	
     
