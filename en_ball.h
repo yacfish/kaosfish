@@ -23,15 +23,14 @@ public:
 		
 		radius.set(EN_BALL_RADIUS);
         alive = true;
-		col.set( 255.0f, 255.0f, 255.0f, 0 );
-        sprite_enemy.loadImage("images/enemy1_50.png");
+		col.set( 255.0f, 255.0f, 255.0f, 255.0f );
+        sprite_enemy.loadImage("images/enemy1_64.png");
         
 		velfactor.set(0);
         
         //alpha = 255;
         
-        alpha.set(0, 1);
-        enemyrotation = 0;
+        alpha.set(255);
 		
 	}
     
@@ -86,15 +85,6 @@ public:
 			pos.y = ofGetHeight() - EN_BALL_RADIUS;
 			vel.y *= -1; 
 		}
-        
-        float dist_factor = 1 - ((clip(sqrt(distance_from(x, y)),0, 400)/ 400)*0.6);
-        
-        //float dist_factor = distance_from(x, y);
-        
-        //cout << "dist_factor : " << dist_factor << endl;
-        
-        enemyrotation= (int)((enemyrotation+(10*dist_factor*velfactor.twf*60/ofGetFrameRate())))%360;
-        
 	}
     
 	
